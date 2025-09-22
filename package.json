@@ -1,0 +1,23 @@
+{
+  "name": "obsidian-baseball",
+  "version": "1.0.0",
+  "description": "Michael Doyle Baseball Statistics Analytics",
+  "scripts": {
+    "build": "quartz build",
+    "serve": "quartz build --serve",
+    "sync": "quartz sync"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doyled-it/obsidian-baseball.git"
+  },
+  "keywords": [
+    "baseball",
+    "statistics",
+    "analytics",
+    "obsidian",
+    "quartz"
+  ],
+  "author": "Michael Doyle",
+  "license": "MIT"
+}

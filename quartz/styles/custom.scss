@@ -1,0 +1,265 @@
+// Custom Baseball Stats Styling
+
+// Baseball-themed colors
+:root {
+  --baseball-green: #1e4d2b;
+  --baseball-brown: #8b4513;
+  --baseball-cream: #fffdd0;
+  --stat-highlight: #3498db;
+  --positive-stat: #2ecc71;
+  --negative-stat: #e74c3c;
+}
+
+// Season card enhancements
+.season-card {
+  background: linear-gradient(135deg, var(--light) 0%, var(--lightgray) 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--baseball-green);
+
+  .player-profile {
+    background: var(--baseball-green);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+
+    h3 {
+      margin: 0;
+      color: white;
+    }
+  }
+}
+
+// Statistical tables
+table {
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  th {
+    background: var(--baseball-green);
+    color: white;
+    padding: 12px 16px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  td {
+    padding: 10px 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--lightgray);
+    font-family: var(--codeFont);
+    font-weight: 500;
+
+    &:first-child {
+      font-weight: 600;
+      background: var(--light);
+    }
+  }
+
+  tr:hover {
+    background: var(--highlight);
+  }
+}
+
+// Stat highlighting
+.stat-excellent {
+  color: var(--positive-stat);
+  font-weight: bold;
+}
+
+.stat-good {
+  color: var(--stat-highlight);
+  font-weight: bold;
+}
+
+.stat-needs-work {
+  color: var(--negative-stat);
+  font-weight: bold;
+}
+
+// Baseball-specific callouts
+.callout {
+  &[data-callout="success"] {
+    --color: var(--positive-stat);
+    --border: var(--positive-stat);
+
+    .callout-title {
+      &::before {
+        content: "🏆 ";
+      }
+    }
+  }
+
+  &[data-callout="tip"] {
+    --color: var(--stat-highlight);
+    --border: var(--stat-highlight);
+
+    .callout-title {
+      &::before {
+        content: "⚾ ";
+      }
+    }
+  }
+
+  &[data-callout="star"] {
+    --color: #ffd700;
+    --border: #ffd700;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff5d6 100%);
+
+    .callout-title {
+      &::before {
+        content: "⭐ ";
+      }
+    }
+  }
+}
+
+// Game log styling
+.game-log {
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--baseball-green);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px 8px 0 0;
+
+    .game-date {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .game-result {
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// Performance indicators
+.performance-indicator {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: 8px;
+
+  &.trending-up {
+    background: var(--positive-stat);
+    color: white;
+
+    &::after {
+      content: " 📈";
+    }
+  }
+
+  &.trending-down {
+    background: var(--negative-stat);
+    color: white;
+
+    &::after {
+      content: " 📉";
+    }
+  }
+
+  &.steady {
+    background: var(--gray);
+    color: white;
+
+    &::after {
+      content: " ➡️";
+    }
+  }
+}
+
+// Goal progress indicators
+.goal-progress {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+
+  .goal-text {
+    flex: 1;
+  }
+
+  .goal-status {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+
+    &.achieved {
+      color: var(--positive-stat);
+    }
+
+    &.in-progress {
+      color: var(--stat-highlight);
+    }
+  }
+}
+
+// Signature games highlighting
+.signature-game {
+  background: linear-gradient(90deg, #fff9e6 0%, transparent 100%);
+  border-left: 4px solid #ffd700;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0 8px 8px 0;
+
+  .game-rating {
+    float: right;
+    background: #ffd700;
+    color: #333;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+}
+
+// Mobile responsiveness
+@media (max-width: 768px) {
+  .season-card {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  table {
+    font-size: 0.8rem;
+
+    th, td {
+      padding: 8px 12px;
+    }
+  }
+
+  .game-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+// Print styles for season cards
+@media print {
+  .season-card {
+    box-shadow: none;
+    border: 2px solid #000;
+    page-break-inside: avoid;
+  }
+
+  .callout {
+    border: 1px solid #000;
+    background: white !important;
+  }
+}
