@@ -1,9 +1,9 @@
 ---
 type: baseball-season-summary
 season: Summer 2025
-player: 
-team: 
-position: 
+player:
+team:
+position:
 games_folder: games/2025/summer
 ---
 

@@ -1,4 +1,3 @@
-```yaml
 ---
 date: {{date:YYYY-MM-DD}}
 type: baseball-stats
@@ -7,24 +6,29 @@ location:
 result: W/L
 score: 
 ---
-```
 
 # ⚾️ Game Log – {{date:YYYY-MM-DD}}
 
 ## 🥎 Hitting
-- AB:: 
-- H:: 
-- 2B:: 
-- 3B:: 
-- HR:: 
-- RBI:: 
-- R:: 
-- BB:: 
-- K:: 
-- HBP:: 
-- SF:: 
-- SB:: 
-- CS:: 
+- AB::
+- H::
+- 2B::
+- 3B::
+- HR::
+- RBI::
+- R::
+- BB::
+- K::
+- HBP::
+- SF::
+- SB::
+- CS::
+
+### 🎯 Clutch & Quality
+- RISP:: (at-bats with runners in scoring position)
+- RISP_H:: (hits with RISP)
+- hard_contact:: (hard-hit balls, even if outs)
+- pitches_seen:: (total pitches faced) 
 
 ## 🧤 Fielding
 - PO:: 
@@ -44,7 +48,13 @@ score:
 - BF::
 - PC:: 
 
+## 📊 Game Quality
+- game_rating:: (1-10 scale)
+- leverage_situations:: (high/medium/low)
+- notable_moments::
+- lessons_learned::
+
 ## 📝 Notes
-- Hitting:  
-- Fielding:  
+- Hitting:
+- Fielding:
 - Pitching:
