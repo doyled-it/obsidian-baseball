@@ -262,21 +262,21 @@ function processSeasonCard(filePath, gamesFolder) {
   processedContent = processedContent.replace(/`=this\.season`/g, parsed.data.season || 'Unknown Season');
   processedContent = processedContent.replace(/`=this\.games_folder`/g, parsed.data.games_folder || 'games/');
 
-  // Fix the player profile section formatting
+  // Fix the player profile section formatting with proper newlines
   const playerProfileSection = `> [!info]+ Player Profile
-**Player:** ${parsed.data.player || 'Unknown Player'}
-**Team:** ${parsed.data.team || 'Unknown Team'}
-**Position:** ${parsed.data.player_position || 'Unknown Position'}
-**Season:** ${parsed.data.season || 'Unknown Season'}
-**Games folder:** ${parsed.data.games_folder || 'games/'}`;
+> **Player:** ${parsed.data.player || 'Unknown Player'}
+> **Team:** ${parsed.data.team || 'Unknown Team'}
+> **Position:** ${parsed.data.player_position || 'Unknown Position'}
+> **Season:** ${parsed.data.season || 'Unknown Season'}
+> **Games folder:** ${parsed.data.games_folder || 'games/'}`;
 
   processedContent = processedContent.replace(
     /> \[!info\]\+ Player Profile\s*\*\*Player:\*\* `=this\.player`[\s\S]*?\*\*Games folder:\*\* `=this\.games_folder`/,
     playerProfileSection
   );
 
-  // Also fix the title
-  processedContent = processedContent.replace(/# 📇 Enhanced Season Baseball Card – `=this\.season`/g,
+  // Also fix the title (handle both template variations)
+  processedContent = processedContent.replace(/# 📇 (?:Enhanced )?Season Baseball Card – `=this\.season`/g,
     `# 📇 ${parsed.data.season || 'Unknown Season'} Baseball Card`);
 
   // Replace hitting performance block (look for the first large dataviewjs block)

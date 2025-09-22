@@ -6,7 +6,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Michael Doyle Baseball Analytics",
+    pageTitle: "⚾ Baseball Analytics",
     enableSPA: true,
     enablePopovers: true,
     analytics: {

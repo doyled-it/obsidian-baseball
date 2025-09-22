@@ -1,8 +1,14 @@
 // Custom Baseball Stats Styling
 
-// Force hide right sidebar components
-.right {
+// Force hide right sidebar components - multiple approaches
+.right,
+.sidebar.right,
+div[class*="right"],
+.page > .right {
   display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  max-width: 0 !important;
 }
 
 // Hide specific components that commonly appear on the right
@@ -10,13 +16,56 @@
 .toc,
 .table-of-contents,
 .backlinks,
-.popover-hint {
+.popover-hint,
+.graph-outer,
+.graph-container,
+.toc-container {
   display: none !important;
+  visibility: hidden !important;
 }
 
 // Ensure main content takes full width when right sidebar is hidden
 .page {
-  grid-template-columns: auto 1fr !important;
+  grid-template-columns: auto 1fr 0px !important;
+}
+
+// Alternative grid approach
+@supports (display: grid) {
+  .page {
+    display: grid !important;
+    grid-template-areas:
+      "left center" !important;
+    grid-template-columns: auto 1fr !important;
+  }
+
+  .left {
+    grid-area: left !important;
+  }
+
+  .center {
+    grid-area: center !important;
+  }
+
+  .right {
+    display: none !important;
+  }
+}
+
+// Force correct explorer title
+.explorer h1,
+.explorer .explorer-title {
+  &::after {
+    content: "⚾ Baseball Analytics" !important;
+  }
+
+  // Hide original text
+  font-size: 0 !important;
+
+  &::after {
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    color: var(--darkgray) !important;
+  }
 }
 
 // Baseball-themed colors
