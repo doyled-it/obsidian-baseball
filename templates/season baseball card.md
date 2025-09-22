@@ -3,7 +3,7 @@ type: baseball-season-summary
 season: Summer 2025
 player: Michael Doyle
 team: Happy Sox
-position: Pitcher/IF/OF
+player_position: "Utility (P/IF/OF)"
 games_folder: games/2025/summer
 ---
 
@@ -12,7 +12,7 @@ games_folder: games/2025/summer
 > [!info]+ Player Profile
 **Player:** `=this.player`
 **Team:** `=this.team`
-**Position:** `=this.position`
+**Position:** `=this.player_position`
 **Season:** `=this.season`
 **Games folder:** `=this.games_folder`
 
