@@ -57,11 +57,17 @@ export const defaultContentPageLayout: PageLayout = {
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
-    Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(
+      Component.Explorer({
+        title: "⚾ Baseball Analytics",
+        folderClickBehavior: "collapse",
+        folderDefaultState: "collapsed",
+        useSavedState: true,
+      })
+    ),
   ],
   right: [],
 }

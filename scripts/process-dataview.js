@@ -20,19 +20,23 @@ function parseGameFile(filePath) {
 
     // Extract inline fields from content using regex
     const stats = {};
-    // Look for patterns like "- AB:: 4" or "- BB_p:: 1"
-    const inlineFieldRegex = /^-\s+([^:]+)::\s*(.*)$/gm;
+    // Look for patterns like "- AB:: 4" but stop at end of line
+    const inlineFieldRegex = /^-\s+([^:]+)::\s*([^\r\n]*)$/gm;
     let match;
 
     while ((match = inlineFieldRegex.exec(parsed.content)) !== null) {
       const field = match[1].trim();
       const value = match[2].trim();
 
-      // Store the value, converting empty strings to 0 but keeping actual values as strings for now
-      stats[field] = value === '' ? 0 : value;
-
-      // Debug output
-      console.log(`Found field: "${field}" = "${value}"`);
+      // Only store if value doesn't start with a dash or contain markdown (indicates it grabbed next line)
+      if (!value.startsWith('-') && !value.includes('#') && !value.includes('(')) {
+        stats[field] = value === '' ? 0 : value;
+        console.log(`Found field: "${field}" = "${value}"`);
+      } else {
+        // This is likely an empty field that grabbed the next line
+        stats[field] = 0;
+        console.log(`Empty field: "${field}" = 0 (skipped invalid value: "${value}")`);
+      }
     }
 
     // Log all found stats for debugging
