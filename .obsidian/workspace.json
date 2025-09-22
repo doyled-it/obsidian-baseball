@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "seasons/Summer 2025.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "seasons/Summer 2025.md",
+                "file": "index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "seasons/Summer 2025.md",
+                "file": "index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "seasons/Summer 2025.md"
+                "file": "index.md"
               }
             }
           }
@@ -149,6 +149,7 @@
   },
   "active": "839301b1721e3c7d",
   "lastOpenFiles": [
+    "seasons/Summer 2025.md",
     "package.json",
     "index.md",
     "quartz/styles/custom.scss",
@@ -157,7 +158,6 @@
     "quartz.layout.ts",
     "quartz.config.ts",
     "README.md",
-    "seasons/Summer 2025.md",
     "seasons",
     "CLAUDE.md",
     "templates/season baseball card.md",
