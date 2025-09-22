@@ -245,12 +245,139 @@ ${pitchingTable}
   };
 }
 
+// Generate signature moments and performance trends
+function generateSignatureMoments(stats) {
+  const { games } = stats;
+
+  // Find signature games
+  let signatureGames = [];
+  let gameRatings = [];
+  let monthlyStats = {};
+
+  for (const game of games) {
+    const hits = N(game.stats.H);
+    const hrs = N(game.stats.HR);
+    const rbis = N(game.stats.RBI);
+    const rating = N(game.stats.game_rating);
+    const ab = N(game.stats.AB);
+
+    // Signature game criteria
+    let reasons = [];
+    if (hits >= 3) reasons.push(`${hits} hits`);
+    if (hrs >= 1) reasons.push(`${hrs} HR`);
+    if (rbis >= 3) reasons.push(`${rbis} RBI`);
+    if (ab >= 4 && hits === ab) reasons.push("Perfect batting");
+    if (rating >= 9) reasons.push("Outstanding game");
+
+    if (reasons.length > 0) {
+      // Get date from frontmatter or filename
+      const gameDate = game.frontmatter.date || "Unknown Date";
+      signatureGames.push({
+        date: gameDate,
+        opponent: game.frontmatter.opponent || "Unknown",
+        reasons: reasons,
+        rating: rating
+      });
+    }
+
+    if (rating > 0) gameRatings.push(rating);
+
+    // Monthly breakdown
+    if (game.frontmatter.date) {
+      const month = game.frontmatter.date.toString().substring(0, 7); // YYYY-MM
+      if (!monthlyStats[month]) {
+        monthlyStats[month] = {games: 0, hits: 0, abs: 0, hrs: 0};
+      }
+      monthlyStats[month].games++;
+      monthlyStats[month].hits += hits;
+      monthlyStats[month].abs += ab;
+      monthlyStats[month].hrs += hrs;
+    }
+  }
+
+  // Generate signature games section
+  let signatureSection = "### ⭐ Signature Games\n\n";
+  if (signatureGames.length > 0) {
+    // Sort by rating, then by date
+    signatureGames.sort((a, b) => (b.rating - a.rating) || (b.date - a.date));
+
+    for (const game of signatureGames.slice(0, 5)) { // Top 5
+      signatureSection += `**${game.date}** vs ${game.opponent} - ${game.reasons.join(", ")} ${game.rating ? `(${game.rating}/10)` : ""}\n\n`;
+    }
+  } else {
+    signatureSection += "*No signature games yet - keep grinding!*\n\n";
+  }
+
+  // Generate performance trends section
+  signatureSection += "### 📈 Performance Trends\n\n";
+  if (gameRatings.length > 0) {
+    const avgRating = gameRatings.reduce((a, b) => a + b, 0) / gameRatings.length;
+    const recentGames = gameRatings.slice(-5);
+    const recentAvg = recentGames.reduce((a, b) => a + b, 0) / recentGames.length;
+    const trend = recentAvg > avgRating ? "📈 Trending up" :
+                  recentAvg < avgRating ? "📉 Trending down" : "➡️ Steady";
+
+    signatureSection += `**Season Rating:** ${avgRating.toFixed(1)}/10 • **Recent (last 5):** ${recentAvg.toFixed(1)}/10 ${trend}\n\n`;
+  }
+
+  // Monthly progression
+  if (Object.keys(monthlyStats).length > 1) {
+    signatureSection += "#### Monthly Progression\n\n";
+    const months = Object.keys(monthlyStats).sort();
+    for (const month of months) {
+      const stats = monthlyStats[month];
+      const avg = stats.abs ? (stats.hits / stats.abs) : 0;
+      signatureSection += `**${month}:** ${stats.games} games, ${avg.toFixed(3)} avg, ${stats.hrs} HR\n\n`;
+    }
+  }
+
+  return signatureSection;
+}
+
+// Generate season goals and insights
+function generateSeasonGoals(stats) {
+  const { games, totals } = stats;
+
+  let goalsSection = "### 📊 Season Overview\n\n";
+
+  // Calculate basic season info
+  const totalGames = games.length;
+  let homeGames = 0;
+  let teamWins = 0;
+
+  for (const game of games) {
+    // Check if home game (no @ symbol means home)
+    if (game.frontmatter.location && !game.frontmatter.location.toString().includes("@")) {
+      homeGames++;
+    }
+
+    // Count team wins
+    if (game.frontmatter.result === "W") teamWins++;
+  }
+
+  goalsSection += `**Games Played:** ${totalGames} • **Home:** ${homeGames} • **Away:** ${totalGames - homeGames}\n\n`;
+  const teamWinPct = totalGames ? (teamWins/totalGames) : 0;
+  goalsSection += `**Team Record:** ${teamWins}-${totalGames - teamWins} (${teamWinPct.toFixed(3)})\n\n`;
+
+  // Goals tracking
+  const currentAvg = totals.AB ? (totals.H / totals.AB) : 0;
+
+  goalsSection += "### 🎯 Season Goals Progress\n\n";
+  goalsSection += `**Batting Average Goal:** .300 → Currently ${currentAvg.toFixed(3)} ${currentAvg >= 0.300 ? "✅" : "🎯"}\n\n`;
+  goalsSection += `**Home Run Goal:** 1 → Currently ${totals.HR} ${totals.HR >= 1 ? "✅" : "🎯"}\n\n`;
+  goalsSection += `**Games Played Goal:** 8 → Currently ${totalGames} ${totalGames >= 8 ? "✅" : "🎯"}\n\n`;
+
+  return goalsSection;
+}
+
 // Process a season card file
 function processSeasonCard(filePath, gamesFolder) {
   const content = fs.readFileSync(filePath, 'utf8');
   const parsed = matter(content);
   const stats = calculateSeasonStats(gamesFolder);
   const tables = generateStaticTables(stats);
+  const signatureMoments = generateSignatureMoments(stats);
+  const seasonGoals = generateSeasonGoals(stats);
 
   // Replace DataviewJS blocks with static content
   let processedContent = parsed.content;
@@ -307,6 +434,18 @@ ${tables.fieldingPercentage}`
   processedContent = processedContent.replace(
     /```dataviewjs\s*const cur3 = dv\.current\(\);[\s\S]*?```/,
     tables.pitchingSection
+  );
+
+  // Replace signature moments block (4th dataviewjs block)
+  processedContent = processedContent.replace(
+    /```dataviewjs\s*const cur4 = dv\.current\(\);[\s\S]*?```/,
+    signatureMoments
+  );
+
+  // Replace season goals block (5th dataviewjs block)
+  processedContent = processedContent.replace(
+    /```dataviewjs\s*const cur5 = dv\.current\(\);[\s\S]*?```/,
+    seasonGoals
   );
 
   // Remove any remaining dataviewjs blocks and replace with placeholder

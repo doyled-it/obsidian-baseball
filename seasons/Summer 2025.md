@@ -7,8 +7,6 @@ player_position: Utility (P/IF/OF)
 games_folder: games/2025/summer
 ---
 
-# 📇 Season Baseball Card – `=this.season`
-
 > [!info]+ Player Profile
 **Player:** `=this.player`
 **Team:** `=this.team`
