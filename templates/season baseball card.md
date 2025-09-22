@@ -3,7 +3,7 @@ type: baseball-season-summary
 season: Summer 2025
 player: Michael Doyle
 team: Happy Sox
-position: P
+position: Pitcher/IF/OF
 games_folder: games/2025/summer
 ---
 
