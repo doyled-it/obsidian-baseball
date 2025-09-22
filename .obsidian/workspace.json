@@ -8,55 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "cc562ee8655fd9ed",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CLAUDE.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "a2535d8a832a5e75",
+            "id": "839301b1721e3c7d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "templates/season baseball card.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "71565783f1daa5be",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "templates/season baseball card.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "3b43a5e7435f5809",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Untitled.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -122,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Untitled.md",
+                "file": "templates/season baseball card.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Untitled.md",
+                "file": "templates/season baseball card.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Untitled.md"
+                "file": "templates/season baseball card.md"
               }
             }
           }
@@ -184,16 +147,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3b43a5e7435f5809",
+  "active": "839301b1721e3c7d",
   "lastOpenFiles": [
+    "games/2025/summer/2025-09-07.md",
     "templates/season baseball card.md",
-    "Untitled.md",
-    "templates/game template.md",
     "games/2025/summer/2025-09-21.md",
-    "README.md.tmp.7539.1758578565753",
     "games/2025/summer/2025-09-14.md",
-    "README.md",
     "CLAUDE.md",
+    "templates/game template.md",
+    "README.md.tmp.7539.1758578565753",
+    "README.md",
     "2025 Summer Baseball Card.md"
   ]
 }
