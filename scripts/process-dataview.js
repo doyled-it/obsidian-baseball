@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const matter = require('gray-matter');
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { execSync } from 'child_process';
 
 // Helper function to safely convert values to numbers
 const N = (v) => {
@@ -300,16 +301,19 @@ function main() {
   console.log('DataviewJS processing complete!');
 }
 
-// Check if gray-matter is available
-try {
-  require.resolve('gray-matter');
-} catch (error) {
-  console.log('Installing gray-matter dependency...');
-  require('child_process').execSync('npm install gray-matter', { stdio: 'inherit' });
-}
+// Main execution
+async function run() {
+  try {
+    await import('gray-matter');
+  } catch (error) {
+    console.log('Installing gray-matter dependency...');
+    execSync('npm install gray-matter', { stdio: 'inherit' });
+  }
 
-if (require.main === module) {
   main();
 }
 
-module.exports = { calculateSeasonStats, processSeasonCard };
+// Run the script
+run().catch(console.error);
+
+export { calculateSeasonStats, processSeasonCard };
