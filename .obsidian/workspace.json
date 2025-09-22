@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "templates/season baseball card.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "templates/season baseball card.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "templates/season baseball card.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "templates/season baseball card.md"
               }
             }
           }
@@ -163,9 +163,9 @@
   "active": "a2535d8a832a5e75",
   "lastOpenFiles": [
     "Untitled.md",
-    "README.md",
     "games/2025/summer/2025-09-21.md",
     "games/2025/summer/2025-09-14.md",
+    "README.md",
     "CLAUDE.md",
     "2025 Summer Baseball Card.md"
   ]
