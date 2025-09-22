@@ -13,8 +13,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "doyled-it.github.io",
-    pathPrefix: "/obsidian-baseball",
+    baseUrl: "doyled-it.github.io/obsidian-baseball",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
