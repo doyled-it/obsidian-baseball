@@ -35,6 +35,23 @@ jobs:
           rm -rf temp-quartz
           npm install
 
+      - name: Prepare content for Quartz
+        run: |
+          # Create content directory
+          mkdir -p content
+
+          # Copy your baseball content to content directory
+          cp index.md content/ 2>/dev/null || echo "No index.md found"
+          cp README.md content/ 2>/dev/null || echo "No README.md found"
+          cp -r seasons content/ 2>/dev/null || echo "No seasons directory found"
+          cp -r games content/ 2>/dev/null || echo "No games directory found"
+
+          # Copy any other markdown files in root
+          find . -maxdepth 1 -name "*.md" -not -name "README.md" -not -name "index.md" -exec cp {} content/ \;
+
+          echo "Content directory structure:"
+          ls -la content/
+
       - name: Build site
         run: |
           npx quartz build
