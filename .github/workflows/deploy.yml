@@ -26,20 +26,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          node-version: 22
 
       - name: Install Quartz
         run: |
           git clone https://github.com/jackyzha0/quartz.git temp-quartz
           cp -r temp-quartz/* .
           rm -rf temp-quartz
-          npm ci
+          npm install
 
       - name: Build site
         run: |
