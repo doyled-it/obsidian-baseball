@@ -52,6 +52,16 @@ jobs:
           echo "Content directory structure:"
           ls -la content/
 
+      - name: Process DataviewJS to static tables
+        run: |
+          # Install gray-matter for parsing frontmatter
+          npm install gray-matter
+
+          # Run our custom DataviewJS processor
+          node scripts/process-dataview.js
+
+          echo "DataviewJS processing completed"
+
       - name: Build site
         run: |
           npx quartz build
