@@ -1,5 +1,6 @@
 ---
 title: "⚾ Michael Doyle Baseball Analytics"
+enableToc: true
 ---
 
 # Welcome to My Baseball Analytics Hub

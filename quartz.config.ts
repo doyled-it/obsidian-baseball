@@ -13,7 +13,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "doyled-it.github.io/obsidian-baseball",
+    baseUrl: "https://doyled-it.github.io/obsidian-baseball",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
@@ -80,6 +80,8 @@ const config: QuartzConfig = {
       Plugin.ContentIndex({
         enableSiteMap: true,
         enableRSS: true,
+        rssTitle: "⚾ Michael Doyle Baseball Analytics",
+        rssDescription: "Professional baseball statistics and performance analytics",
       }),
       Plugin.Assets(),
       Plugin.Static(),
