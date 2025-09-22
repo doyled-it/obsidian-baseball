@@ -20,14 +20,23 @@ function parseGameFile(filePath) {
 
     // Extract inline fields from content using regex
     const stats = {};
-    const inlineFieldRegex = /^- ([^:]+)::\s*(.*)$/gm;
+    // Look for patterns like "- AB:: 4" or "- BB_p:: 1"
+    const inlineFieldRegex = /^-\s+([^:]+)::\s*(.*)$/gm;
     let match;
 
     while ((match = inlineFieldRegex.exec(parsed.content)) !== null) {
       const field = match[1].trim();
       const value = match[2].trim();
+
+      // Store the value, converting empty strings to 0 but keeping actual values as strings for now
       stats[field] = value === '' ? 0 : value;
+
+      // Debug output
+      console.log(`Found field: "${field}" = "${value}"`);
     }
+
+    // Log all found stats for debugging
+    console.log(`Stats found in ${filePath}:`, stats);
 
     return {
       frontmatter: parsed.data,
@@ -69,12 +78,20 @@ function calculateSeasonStats(gamesFolder) {
   const games = [];
 
   // Parse all game files
+  console.log(`Found ${gameFiles.length} potential game files in ${gamesFolder}`);
+
   for (const filePath of gameFiles) {
+    console.log(`Processing file: ${filePath}`);
     const gameData = parseGameFile(filePath);
     if (gameData && gameData.frontmatter.type === 'baseball-stats') {
+      console.log(`Added game: ${filePath}`);
       games.push(gameData);
+    } else {
+      console.log(`Skipped file (not baseball-stats): ${filePath}`);
     }
   }
+
+  console.log(`Total games found: ${games.length}`);
 
   // Filter to games where player actually played
   const playedGames = games.filter(game => {
@@ -95,6 +112,8 @@ function calculateSeasonStats(gamesFolder) {
 
   for (const game of playedGames) {
     const s = game.stats;
+    console.log(`Processing game stats:`, s);
+
     // Hitting
     totals.AB += N(s.AB); totals.H += N(s.H); totals['2B'] += N(s['2B']);
     totals['3B'] += N(s['3B']); totals.HR += N(s.HR); totals.RBI += N(s.RBI);
@@ -112,6 +131,8 @@ function calculateSeasonStats(gamesFolder) {
     totals.ER += N(s.ER); totals.BB_p += N(s.BB_p); totals.K_p += N(s.K_p);
     totals.HR_p += N(s.HR_p); totals.BF += N(s.BF); totals.PC += N(s.PC);
   }
+
+  console.log(`Final totals:`, totals);
 
   // Calculate rates
   const singles = Math.max(0, totals.H - totals['2B'] - totals['3B'] - totals.HR);
