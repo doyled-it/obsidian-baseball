@@ -13,13 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2025 Summer Baseball Card.md",
+                "file": "CLAUDE.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "a2535d8a832a5e75",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2025 Summer Baseball Card.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2025 Summer Baseball Card.md",
+                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2025 Summer Baseball Card.md"
+                "file": "README.md"
               }
             }
           }
@@ -147,10 +160,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "f30c59a8f237f804",
+  "active": "a2535d8a832a5e75",
   "lastOpenFiles": [
-    "CLAUDE.md",
+    "Untitled.md",
+    "README.md",
+    "games/2025/summer/2025-09-21.md",
     "games/2025/summer/2025-09-14.md",
+    "CLAUDE.md",
     "2025 Summer Baseball Card.md"
   ]
 }
