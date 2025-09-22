@@ -22,13 +22,12 @@ export const defaultContentPageLayout: PageLayout = {
     Component.TagList(),
   ],
   left: [
-    Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
     Component.DesktopOnly(
       Component.Explorer({
-        title: "🏟️ Baseball Vault",
+        title: "⚾ Baseball Analytics",
         folderClickBehavior: "collapse",
         folderDefaultState: "collapsed",
         useSavedState: true,
@@ -51,10 +50,7 @@ export const defaultContentPageLayout: PageLayout = {
       }),
     ),
   ],
-  right: [
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)

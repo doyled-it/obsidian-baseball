@@ -14,7 +14,7 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "doyled-it.github.io/obsidian-baseball",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: ["private", "templates", ".obsidian", "README.md", "CODE_OF_CONDUCT.md", "quartz/**", "scripts/**", ".github/**"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",

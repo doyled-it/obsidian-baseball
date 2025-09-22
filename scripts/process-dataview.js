@@ -229,15 +229,40 @@ ${pitchingTable}
 // Process a season card file
 function processSeasonCard(filePath, gamesFolder) {
   const content = fs.readFileSync(filePath, 'utf8');
+  const parsed = matter(content);
   const stats = calculateSeasonStats(gamesFolder);
   const tables = generateStaticTables(stats);
 
   // Replace DataviewJS blocks with static content
-  let processedContent = content;
+  let processedContent = parsed.content;
 
-  // Replace hitting performance block
+  // Replace frontmatter field references with actual values
+  processedContent = processedContent.replace(/`=this\.player`/g, parsed.data.player || 'Unknown Player');
+  processedContent = processedContent.replace(/`=this\.team`/g, parsed.data.team || 'Unknown Team');
+  processedContent = processedContent.replace(/`=this\.player_position`/g, parsed.data.player_position || 'Unknown Position');
+  processedContent = processedContent.replace(/`=this\.season`/g, parsed.data.season || 'Unknown Season');
+  processedContent = processedContent.replace(/`=this\.games_folder`/g, parsed.data.games_folder || 'games/');
+
+  // Fix the player profile section formatting
+  const playerProfileSection = `> [!info]+ Player Profile
+**Player:** ${parsed.data.player || 'Unknown Player'}
+**Team:** ${parsed.data.team || 'Unknown Team'}
+**Position:** ${parsed.data.player_position || 'Unknown Position'}
+**Season:** ${parsed.data.season || 'Unknown Season'}
+**Games folder:** ${parsed.data.games_folder || 'games/'}`;
+
   processedContent = processedContent.replace(
-    /```dataviewjs\s*\/\/ Calculate sums[\s\S]*?```/,
+    /> \[!info\]\+ Player Profile\s*\*\*Player:\*\* `=this\.player`[\s\S]*?\*\*Games folder:\*\* `=this\.games_folder`/,
+    playerProfileSection
+  );
+
+  // Also fix the title
+  processedContent = processedContent.replace(/# 📇 Enhanced Season Baseball Card – `=this\.season`/g,
+    `# 📇 ${parsed.data.season || 'Unknown Season'} Baseball Card`);
+
+  // Replace hitting performance block (look for the first large dataviewjs block)
+  processedContent = processedContent.replace(
+    /```dataviewjs\s*const cur = dv\.current\(\);[\s\S]*?```/,
     `### 📊 Basic Totals
 ${tables.basicTotalsTable}
 
@@ -253,7 +278,7 @@ ${tables.clutchPerformance}`
 
   // Replace fielding block
   processedContent = processedContent.replace(
-    /```dataviewjs\s*const cur2[\s\S]*?```/,
+    /```dataviewjs\s*const cur2 = dv\.current\(\);[\s\S]*?```/,
     `${tables.fieldingTable}
 
 ${tables.fieldingPercentage}`
@@ -261,7 +286,7 @@ ${tables.fieldingPercentage}`
 
   // Replace pitching block
   processedContent = processedContent.replace(
-    /```dataviewjs\s*const cur3[\s\S]*?```/,
+    /```dataviewjs\s*const cur3 = dv\.current\(\);[\s\S]*?```/,
     tables.pitchingSection
   );
 
@@ -271,7 +296,9 @@ ${tables.fieldingPercentage}`
     '*[Advanced analytics features work in Obsidian - static data shown here]*'
   );
 
-  return processedContent;
+  // Reconstruct the full file with frontmatter
+  const fullProcessedContent = matter.stringify(processedContent, parsed.data);
+  return fullProcessedContent;
 }
 
 // Main function

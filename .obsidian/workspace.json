@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "templates/season baseball card.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.md",
+                "file": "templates/season baseball card.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "index.md",
+                "file": "templates/season baseball card.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md"
+                "file": "templates/season baseball card.md"
               }
             }
           }
@@ -149,12 +149,12 @@
   },
   "active": "839301b1721e3c7d",
   "lastOpenFiles": [
+    "index.md",
     "scripts/process-dataview.js",
     "scripts",
     "quartz.layout.ts.tmp.7539.1758582318912",
     "seasons/Summer 2025.md",
     "package.json",
-    "index.md",
     "quartz/styles/custom.scss",
     "quartz/styles",
     "quartz",
@@ -168,7 +168,6 @@
     "games/2025/summer/2025-09-21.md",
     "games/2025/summer/2025-09-14.md",
     "templates/game template.md",
-    "README.md.tmp.7539.1758578565753",
     "2025 Summer Baseball Card.md"
   ]
 }

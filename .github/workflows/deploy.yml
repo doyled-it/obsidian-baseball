@@ -40,14 +40,23 @@ jobs:
           # Create content directory
           mkdir -p content
 
-          # Copy your baseball content to content directory
+          # Copy your baseball content to content directory (exclude Quartz files)
           cp index.md content/ 2>/dev/null || echo "No index.md found"
-          cp README.md content/ 2>/dev/null || echo "No README.md found"
           cp -r seasons content/ 2>/dev/null || echo "No seasons directory found"
           cp -r games content/ 2>/dev/null || echo "No games directory found"
 
-          # Copy any other markdown files in root
-          find . -maxdepth 1 -name "*.md" -not -name "README.md" -not -name "index.md" -exec cp {} content/ \;
+          # Copy your baseball README specifically (rename to avoid Quartz README)
+          if [ -f "README.md" ] && ! grep -q "Quartz" README.md; then
+            cp README.md content/Baseball-Stats-Guide.md
+          fi
+
+          # Copy any other markdown files in root, but exclude Quartz files
+          find . -maxdepth 1 -name "*.md" \
+            -not -name "README.md" \
+            -not -name "index.md" \
+            -not -name "CODE_OF_CONDUCT.md" \
+            -not -path "./quartz/*" \
+            -exec cp {} content/ \;
 
           echo "Content directory structure:"
           ls -la content/
