@@ -1,9 +1,9 @@
 ---
 type: baseball-season-summary
 season: Summer 2025
-player: 
-team: 
-position: 
+player: Michael Doyle
+team: Happy Sox
+position: P
 games_folder: games/2025/summer
 ---
 
@@ -84,7 +84,7 @@ dv.table(
 );
 
 dv.header(3, "🎯 Clutch Performance");
-dv.paragraph(`**With RISP:** ${totals.RISP_H}/${totals.RISP} (.${Math.round(clutch_avg*1000).toString().padStart(3,'0')})`);
+dv.paragraph(`**With RISP:** ${totals.RISP_H}/${totals.RISP} (${clutch_avg.toFixed(3)})`);
 dv.paragraph(`**Hard Contact Rate:** ${(contact_quality*100).toFixed(1)}% (${totals.hard_contact}/${totals.AB})`);
 dv.paragraph(`**Pitches/PA:** ${totals.pitches_seen && obpDen ? (totals.pitches_seen / obpDen).toFixed(1) : "N/A"}`);
 ```
@@ -225,7 +225,7 @@ if (Object.keys(monthlyStats).length > 1) {
   for (const month of months) {
     const stats = monthlyStats[month];
     const avg = stats.abs ? (stats.hits / stats.abs) : 0;
-    dv.paragraph(`**${month}:** ${stats.games} games, .${Math.round(avg*1000).toString().padStart(3,'0')} avg, ${stats.hrs} HR`);
+    dv.paragraph(`**${month}:** ${stats.games} games, ${avg.toFixed(3)} avg, ${stats.hrs} HR`);
   }
 }
 ```
@@ -240,8 +240,8 @@ const pages5 = dv.pages('"' + cur5.games_folder + '"').where(p => p.type === "ba
 
 // Calculate some season insights
 const totalGames = pages5.length;
-let homeGames = 0;
-let wins = 0;
+let homeGames = 1;
+let wins = 1;
 
 for (const p of pages5) {
   if (p.location && !p.location.includes("@")) homeGames++;
@@ -250,18 +250,21 @@ for (const p of pages5) {
 
 dv.header(3, "📊 Season Overview");
 dv.paragraph(`**Games Played:** ${totalGames} • **Home:** ${homeGames} • **Away:** ${totalGames - homeGames}`);
-dv.paragraph(`**Team Record:** ${wins}-${totalGames - wins} (.${Math.round((wins/totalGames)*1000).toString().padStart(3,'0')})`);
+const winPct = totalGames ? (wins/totalGames) : 0;
+dv.paragraph(`**Team Record:** ${wins}-${totalGames - wins} (${winPct.toFixed(3)})`);
 
 // Goals tracking (you can customize these)
-const seasonAB = pages5.map(p => Number(p.AB ?? 0)).reduce((a, b) => a + b, 0);
-const seasonH = pages5.map(p => Number(p.H ?? 0)).reduce((a, b) => a + b, 0);
-const seasonHR = pages5.map(p => Number(p.HR ?? 0)).reduce((a, b) => a + b, 0);
+let seasonAB = 0, seasonH = 0, seasonHR = 0;
+for (const p of pages5) {
+  seasonAB += Number(p.AB ?? 0);
+  seasonH += Number(p.H ?? 0);
+  seasonHR += Number(p.HR ?? 0);
+}
 const currentAvg = seasonAB ? (seasonH / seasonAB) : 0;
 
 dv.header(3, "🎯 Season Goals Progress");
-dv.paragraph(`**Batting Average Goal:** .300 → Currently .${Math.round(currentAvg*1000).toString().padStart(3,'0')} ${currentAvg >= 0.300 ? "✅" : "🎯"}`);
-dv.paragraph(`**Home Run Goal:** 5 → Currently ${seasonHR} ${seasonHR >= 5 ? "✅" : "🎯"}`);
-dv.paragraph(`**Games Goal:** 20 → Currently ${totalGames} ${totalGames >= 20 ? "✅" : "🎯"}`);
+dv.paragraph(`**Batting Average Goal:** .300 → Currently ${currentAvg.toFixed(3)} ${currentAvg >= 0.300 ? "✅" : "🎯"}`);
+dv.paragraph(`**Home Run Goal:** 1 → Currently ${seasonHR} ${seasonHR >= 1 ? "✅" : "🎯"}`);
 ```
 
 ---
