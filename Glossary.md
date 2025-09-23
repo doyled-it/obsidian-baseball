@@ -1,9 +1,7 @@
 ---
-title: "Baseball Statistics Glossary"
+title: Glossary
 type: reference
 ---
-
-# 📖 Baseball Statistics Glossary
 
 *Comprehensive definitions of all baseball statistics tracked in this system*
 

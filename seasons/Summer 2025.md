@@ -8,11 +8,11 @@ games_folder: games/2025/summer
 ---
 
 > [!info]+ Player Profile
-**Player:** `=this.player`
-**Team:** `=this.team`
-**Position:** `=this.player_position`
-**Season:** `=this.season`
-**Games folder:** `=this.games_folder`
+> - **Player:** `=this.player`
+> - **Team:** `=this.team`
+> - **Position:** `=this.player_position`
+> - **Season:** `=this.season`
+> - **Games folder:** `=this.games_folder`
 
 ---
 

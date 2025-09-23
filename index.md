@@ -1,16 +1,15 @@
 ---
-title: "Michael Doyle - Career Baseball Analytics"
+title: "Baseball Card: Michael Doyle"
 type: career-summary
 player: Michael Doyle
 ---
 
-# ⚾ Michael Doyle - Career Baseball Analytics
 
 > [!info]+ Player Overview
-> **Name:** Michael Doyle
-> **Primary Position:** Utility (P/IF/OF)
-> **Teams:** Happy Sox
-> **Active Seasons:** 2025-Present
+> - **Name:** Michael Doyle
+> - **Primary Position:** Utility (P/IF/OF)
+> - **Teams:** Happy Sox
+> - **Active Seasons:** 2025-Present
 
 ---
 

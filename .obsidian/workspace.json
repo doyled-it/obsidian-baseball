@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "templates/season baseball card.md",
+                "file": "seasons/Summer 2025.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "templates/season baseball card.md",
+                "file": "seasons/Summer 2025.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "templates/season baseball card.md",
+                "file": "seasons/Summer 2025.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "templates/season baseball card.md"
+                "file": "seasons/Summer 2025.md"
               }
             }
           }
@@ -149,12 +149,13 @@
   },
   "active": "839301b1721e3c7d",
   "lastOpenFiles": [
+    "templates/season baseball card.md",
+    "seasons/Summer 2025.md",
+    "templates/game template.md",
+    "Glossary.md",
     "index.md",
     "index.md.tmp.7539.1758586224764",
-    "seasons/Summer 2025.md",
-    "Glossary.md",
     "Glossary.md.tmp.7539.1758585957112",
-    "templates/season baseball card.md",
     "games/2025/summer/2025-09-21.md",
     "quartz.config.ts.tmp.7539.1758585204183",
     "scripts/process-dataview.js",
@@ -168,7 +169,6 @@
     "CLAUDE.md",
     "games/2025/summer/2025-09-07.md",
     "games/2025/summer/2025-09-14.md",
-    "templates/game template.md",
     "2025 Summer Baseball Card.md"
   ]
 }
