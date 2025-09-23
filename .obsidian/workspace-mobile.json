@@ -34,23 +34,9 @@
               "icon": "lucide-file",
               "title": "season baseball card"
             }
-          },
-          {
-            "id": "ca3f54370ee515be",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Untitled.md",
-                "mode": "preview",
-                "source": true
-              },
-              "icon": "lucide-file",
-              "title": "Untitled"
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -184,18 +170,29 @@
       "bases:Create new base": false
     }
   },
-  "active": "ca3f54370ee515be",
+  "active": "8c00b4c78021c472",
   "lastOpenFiles": [
+    "seasons/Summer 2025.md",
+    "seasons",
+    "scripts/process-dataview.js",
+    "scripts",
+    "README.md",
+    "quartz/components/scripts/cleanup.inline.ts",
+    "quartz/styles/custom.scss",
+    "quartz/components/scripts",
+    "quartz/styles",
+    "quartz/components",
+    "quartz",
+    "quartz.layout.ts",
+    "index.md",
+    "Glossary.md",
+    "games/2025/summer/2025-09-21.md",
+    "Untitled.md",
     "games/2025/summer/2025-09-07.md",
     "games/2025/summer/2025-09-14.md",
-    "Untitled.md",
     "templates/season baseball card.md",
     "Summer 2025 Baseball Card.md",
-    "games/2025/summer",
-    "games/2025",
     "templates/game template.md",
-    "games/Untitled.md",
-    "games",
-    "templates"
+    "games/Untitled.md"
   ]
 }
