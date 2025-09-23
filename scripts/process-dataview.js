@@ -232,7 +232,7 @@ ${pitchingTable}
 `;
 
   // Fielding percentage
-  const fieldingPercentage = `**Fielding %** ${rates.fldpct.toFixed(3)} • **Range Factor** ${stats.gamesPlayed ? ((totals.PO + totals.A) / stats.gamesPlayed).toFixed(1) : "0.0"} per game`;
+  const fieldingPercentage = `**[Fielding %](Glossary.md#fielding-percentage)** ${rates.fldpct.toFixed(3)} • **[Range Factor](Glossary.md#range-factor)** ${stats.gamesPlayed ? ((totals.PO + totals.A) / stats.gamesPlayed).toFixed(1) : "0.0"} per game`;
 
   return {
     basicTotalsTable,
@@ -482,7 +482,7 @@ function generateCareerTables(careerTotals, contentDir) {
 |---|---|---|---|---|
 | ${careerTotals.PO} | ${careerTotals.A} | ${careerTotals.E} | ${careerTotals.TC} | ${careerTotals.DP} |
 
-**[Fielding %](Glossary.md#fielding-percentage)** ${fldpct.toFixed(3)} • **Range Factor** ${careerTotals.gamesPlayed ? ((careerTotals.PO + careerTotals.A) / careerTotals.gamesPlayed).toFixed(1) : "0.0"} per game`;
+**[Fielding %](Glossary.md#fielding-percentage)** ${fldpct.toFixed(3)} • **[Range Factor](Glossary.md#range-factor)** ${careerTotals.gamesPlayed ? ((careerTotals.PO + careerTotals.A) / careerTotals.gamesPlayed).toFixed(1) : "0.0"} per game`;
 
   // Career pitching (only if there are pitching stats)
   let careerPitchingSection = "";

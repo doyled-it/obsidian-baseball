@@ -4,24 +4,49 @@
 .right,
 .sidebar.right,
 div[class*="right"],
-.page > .right {
+.page > .right,
+.page-header .right,
+.page-body .right,
+aside.right,
+nav.right,
+section.right,
+div.right {
   display: none !important;
   visibility: hidden !important;
   width: 0 !important;
   max-width: 0 !important;
+  overflow: hidden !important;
 }
 
-// Hide specific components that commonly appear on the right
+// Hide specific components by name
 .graph,
+.graph-view,
+.backlinks,
 .toc,
 .table-of-contents,
-.backlinks,
-.popover-hint,
 .graph-outer,
 .graph-container,
-.toc-container {
+.toc-container,
+*[class*="graph"],
+*[class*="backlink"],
+*[class*="toc"] {
   display: none !important;
   visibility: hidden !important;
+}
+
+// Hide any remaining sidebar content
+*:contains("Graph View"),
+*:contains("Backlinks"),
+*:contains("Table of Contents") {
+  display: none !important;
+}
+
+// Force main content to full width
+.page-container,
+.page-wrapper,
+main {
+  max-width: 100% !important;
+  width: 100% !important;
 }
 
 // Ensure main content takes full width when right sidebar is hidden

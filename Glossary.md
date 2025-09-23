@@ -191,7 +191,7 @@ type: reference
 ### Contact Quality
 **Percentage of hard-hit balls** - The rate at which a batter makes solid contact, typically measured by exit velocity.
 
-### Range Factor
+### Range Factor {#range-factor}
 **Fielding chances per game** - (PO + A) / Games Played. Measures how much territory a fielder covers.
 
 ### Leverage Situations
