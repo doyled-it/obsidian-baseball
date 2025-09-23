@@ -536,7 +536,7 @@ function generateCareerExtras(careerTotals, contentDir) {
           const position = seasonParsed.data.player_position || 'Unknown Position';
           const gamesFolder = seasonParsed.data.games_folder || 'games/';
 
-          seasonHistory += `| [${seasonName}](seasons/${seasonFile.replace('.md', '')}) | ${team} | ${position} | ${gamesFolder} |\n`;
+          seasonHistory += `| [${seasonName}](seasons/${seasonFile}) | ${team} | ${position} | ${gamesFolder} |\n`;
         }
       }
     } else {
