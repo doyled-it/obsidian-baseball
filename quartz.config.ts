@@ -1,5 +1,5 @@
-import { QuartzConfig } from "./quartz/cfg"
-import * as Plugin from "./quartz/plugins"
+import { QuartzConfig } from "./quartz/cfg";
+import * as Plugin from "./quartz/plugins";
 
 /**
  * Quartz 4.0 Configuration for Baseball Stats
@@ -14,7 +14,16 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "doyled-it.github.io/obsidian-baseball",
-    ignorePatterns: ["private", "templates", ".obsidian", "README.md", "CODE_OF_CONDUCT.md", "quartz/**", "scripts/**", ".github/**"],
+    ignorePatterns: [
+      "private",
+      "templates",
+      ".obsidian",
+      "README.md",
+      "CODE_OF_CONDUCT.md",
+      "quartz/**",
+      "scripts/**",
+      ".github/**",
+    ],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
@@ -79,15 +88,16 @@ const config: QuartzConfig = {
       Plugin.TagPage(),
       Plugin.ContentIndex({
         enableSiteMap: true,
-        enableRSS: true,
+        enableRSS: false,
         rssTitle: "⚾ Michael Doyle Baseball Analytics",
-        rssDescription: "Professional baseball statistics and performance analytics",
+        rssDescription:
+          "Professional baseball statistics and performance analytics",
       }),
       Plugin.Assets(),
       Plugin.Static(),
       Plugin.NotFoundPage(),
     ],
   },
-}
+};
 
-export default config
+export default config;
