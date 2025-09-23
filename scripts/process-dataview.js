@@ -370,6 +370,265 @@ function generateSeasonGoals(stats) {
   return goalsSection;
 }
 
+// Calculate career statistics for index page
+function calculateCareerStats(contentDir) {
+  const seasonsDir = path.join(contentDir, 'seasons');
+  let careerTotals = {
+    seasons: 0, gamesPlayed: 0,
+    AB: 0, H: 0, '2B': 0, '3B': 0, HR: 0, RBI: 0, R: 0, BB: 0, K: 0, HBP: 0, SF: 0, SB: 0, CS: 0,
+    RISP: 0, RISP_H: 0, hard_contact: 0, pitches_seen: 0,
+    PO: 0, A: 0, E: 0, TC: 0, DP: 0,
+    IP: 0, H_p: 0, R_p: 0, ER: 0, BB_p: 0, K_p: 0, HR_p: 0, BF: 0, PC: 0
+  };
+
+  if (!fs.existsSync(seasonsDir)) return careerTotals;
+
+  const seasonFiles = fs.readdirSync(seasonsDir).filter(f => f.endsWith('.md'));
+
+  for (const seasonFile of seasonFiles) {
+    const seasonPath = path.join(seasonsDir, seasonFile);
+    const seasonContent = fs.readFileSync(seasonPath, 'utf8');
+    const seasonParsed = matter(seasonContent);
+
+    if (seasonParsed.data.type === 'baseball-season-summary') {
+      careerTotals.seasons++;
+
+      const gamesFolder = path.join(contentDir, seasonParsed.data.games_folder || 'games/');
+      if (fs.existsSync(gamesFolder)) {
+        const gameFiles = findGameFiles(gamesFolder);
+
+        for (const gameFile of gameFiles) {
+          const gameData = parseGameFile(gameFile);
+          if (gameData && gameData.frontmatter.type === 'baseball-stats') {
+            const stats = gameData.stats;
+
+            // Check if player actually played
+            if (N(stats.AB) > 0 || N(stats.H) > 0 || N(stats.PO) > 0 || N(stats.A) > 0 || N(stats.IP) > 0) {
+              careerTotals.gamesPlayed++;
+
+              // Sum all statistics
+              careerTotals.AB += N(stats.AB); careerTotals.H += N(stats.H); careerTotals['2B'] += N(stats['2B']);
+              careerTotals['3B'] += N(stats['3B']); careerTotals.HR += N(stats.HR); careerTotals.RBI += N(stats.RBI);
+              careerTotals.R += N(stats.R); careerTotals.BB += N(stats.BB); careerTotals.K += N(stats.K);
+              careerTotals.HBP += N(stats.HBP); careerTotals.SF += N(stats.SF); careerTotals.SB += N(stats.SB); careerTotals.CS += N(stats.CS);
+              careerTotals.RISP += N(stats.RISP); careerTotals.RISP_H += N(stats.RISP_H);
+              careerTotals.hard_contact += N(stats.hard_contact); careerTotals.pitches_seen += N(stats.pitches_seen);
+              careerTotals.PO += N(stats.PO); careerTotals.A += N(stats.A); careerTotals.E += N(stats.E);
+              careerTotals.TC += N(stats.TC); careerTotals.DP += N(stats.DP);
+              careerTotals.IP += N(stats.IP); careerTotals.H_p += N(stats.H_p); careerTotals.R_p += N(stats.R_p);
+              careerTotals.ER += N(stats.ER); careerTotals.BB_p += N(stats.BB_p); careerTotals.K_p += N(stats.K_p);
+              careerTotals.HR_p += N(stats.HR_p); careerTotals.BF += N(stats.BF); careerTotals.PC += N(stats.PC);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return careerTotals;
+}
+
+// Generate career statistics tables
+function generateCareerTables(careerTotals, contentDir) {
+  // Career overview
+  const careerOverview = `### 🏆 Career Overview
+
+**Seasons Played:** ${careerTotals.seasons} • **Games Played:** ${careerTotals.gamesPlayed} • **Primary Position:** Utility`;
+
+  // Career hitting table
+  const careerHittingTable = `### 🥎 Career Hitting
+
+| [AB](Glossary.md#ab) | [H](Glossary.md#h) | [2B](Glossary.md#2b) | [3B](Glossary.md#3b) | [HR](Glossary.md#hr) | [RBI](Glossary.md#rbi) | [R](Glossary.md#r) | [BB](Glossary.md#bb) | [K](Glossary.md#k) | [HBP](Glossary.md#hbp) | [SF](Glossary.md#sf) | [SB](Glossary.md#sb) | [CS](Glossary.md#cs) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| ${careerTotals.AB} | ${careerTotals.H} | ${careerTotals['2B']} | ${careerTotals['3B']} | ${careerTotals.HR} | ${careerTotals.RBI} | ${careerTotals.R} | ${careerTotals.BB} | ${careerTotals.K} | ${careerTotals.HBP} | ${careerTotals.SF} | ${careerTotals.SB} | ${careerTotals.CS} |`;
+
+  // Calculate career rates
+  const singles = Math.max(0, careerTotals.H - careerTotals['2B'] - careerTotals['3B'] - careerTotals.HR);
+  const AVG = careerTotals.AB ? (careerTotals.H / careerTotals.AB) : 0;
+  const obpDen = (careerTotals.AB + careerTotals.BB + careerTotals.HBP + careerTotals.SF);
+  const OBP = obpDen ? ((careerTotals.H + careerTotals.BB + careerTotals.HBP) / obpDen) : 0;
+  const tb = singles + 2*careerTotals['2B'] + 3*careerTotals['3B'] + 4*careerTotals.HR;
+  const SLG = careerTotals.AB ? (tb / careerTotals.AB) : 0;
+  const OPS = OBP + SLG;
+
+  const careerRatesTable = `### 📈 Career Rates
+
+| [AVG](Glossary.md#avg) | [OBP](Glossary.md#obp) | [SLG](Glossary.md#slg) | [OPS](Glossary.md#ops) |
+|---|---|---|---|
+| ${AVG.toFixed(3)} | ${OBP.toFixed(3)} | ${SLG.toFixed(3)} | ${OPS.toFixed(3)} |`;
+
+  // Advanced career metrics
+  const BABIP = (careerTotals.AB - careerTotals.K - careerTotals.HR + careerTotals.SF) ?
+    ((careerTotals.H - careerTotals.HR) / (careerTotals.AB - careerTotals.K - careerTotals.HR + careerTotals.SF)) : 0;
+  const ISO = SLG - AVG;
+  const XBH = careerTotals['2B'] + careerTotals['3B'] + careerTotals.HR;
+  const XBH_pct = careerTotals.H ? (XBH / careerTotals.H) : 0;
+  const BB_pct = obpDen ? (careerTotals.BB / obpDen) : 0;
+  const K_pct = obpDen ? (careerTotals.K / obpDen) : 0;
+  const clutch_avg = careerTotals.RISP ? (careerTotals.RISP_H / careerTotals.RISP) : 0;
+  const contact_quality = careerTotals.AB ? (careerTotals.hard_contact / careerTotals.AB) : 0;
+
+  const advancedMetricsTable = `### 🔬 Advanced Career Metrics
+
+| [BABIP](Glossary.md#babip) | [ISO](Glossary.md#iso) | [XBH%](Glossary.md#xbh) | [BB%](Glossary.md#bb-rate) | [K%](Glossary.md#k-rate) | Clutch [AVG](Glossary.md#avg) | Contact Quality |
+|---|---|---|---|---|---|---|
+| ${BABIP.toFixed(3)} | ${ISO.toFixed(3)} | ${(XBH_pct*100).toFixed(1)}% | ${(BB_pct*100).toFixed(1)}% | ${(K_pct*100).toFixed(1)}% | ${clutch_avg.toFixed(3)} | ${(contact_quality*100).toFixed(1)}% |`;
+
+  // Career fielding
+  const fldpct = careerTotals.TC ? ((careerTotals.PO + careerTotals.A) / careerTotals.TC) : 0;
+  const careerFieldingTable = `### 🧤 Career Fielding
+
+| [PO](Glossary.md#po) | [A](Glossary.md#a) | [E](Glossary.md#e) | [TC](Glossary.md#tc) | [DP](Glossary.md#dp) |
+|---|---|---|---|---|
+| ${careerTotals.PO} | ${careerTotals.A} | ${careerTotals.E} | ${careerTotals.TC} | ${careerTotals.DP} |
+
+**[Fielding %](Glossary.md#fielding-percentage)** ${fldpct.toFixed(3)} • **Range Factor** ${careerTotals.gamesPlayed ? ((careerTotals.PO + careerTotals.A) / careerTotals.gamesPlayed).toFixed(1) : "0.0"} per game`;
+
+  // Career pitching (only if there are pitching stats)
+  let careerPitchingSection = "";
+  if (careerTotals.IP > 0) {
+    const era = careerTotals.IP ? (careerTotals.ER * 9 / careerTotals.IP) : 0;
+    const whip = careerTotals.IP ? ((careerTotals.BB_p + careerTotals.H_p) / careerTotals.IP) : 0;
+    const kbb = careerTotals.BB_p ? (careerTotals.K_p / careerTotals.BB_p) : (careerTotals.K_p ? Infinity : 0);
+    const k9 = careerTotals.IP ? (careerTotals.K_p * 9 / careerTotals.IP) : 0;
+    const bb9 = careerTotals.IP ? (careerTotals.BB_p * 9 / careerTotals.IP) : 0;
+
+    careerPitchingSection = `### ⚾️ Career Pitching
+
+| [IP](Glossary.md#ip) | [H](Glossary.md#h-pitching) | [R](Glossary.md#r-pitching) | [ER](Glossary.md#er) | [BB](Glossary.md#bb-pitching) | [K](Glossary.md#k-pitching) | [HR](Glossary.md#hr-pitching) | [BF](Glossary.md#bf) | [PC](Glossary.md#pc) |
+|---|---|---|---|---|---|---|---|---|
+| ${careerTotals.IP} | ${careerTotals.H_p} | ${careerTotals.R_p} | ${careerTotals.ER} | ${careerTotals.BB_p} | ${careerTotals.K_p} | ${careerTotals.HR_p} | ${careerTotals.BF} | ${careerTotals.PC} |
+
+**[ERA](Glossary.md#era)** ${era.toFixed(2)} • **[WHIP](Glossary.md#whip)** ${whip.toFixed(2)} • **[K/BB](Glossary.md#kbb)** ${(kbb===Infinity?'∞':kbb.toFixed(2))}
+
+**[K/9](Glossary.md#k9)** ${k9.toFixed(1)} • **[BB/9](Glossary.md#bb9)** ${bb9.toFixed(1)} • **Pitches/Batter** ${careerTotals.BF ? (careerTotals.PC/careerTotals.BF).toFixed(1) : "N/A"}`;
+  }
+
+  return {
+    careerOverview,
+    careerHittingTable,
+    careerRatesTable,
+    advancedMetricsTable,
+    careerFieldingTable,
+    careerPitchingSection
+  };
+}
+
+// Generate season history and milestones for career page
+function generateCareerExtras(careerTotals, contentDir) {
+  // Season history
+  const seasonsDir = path.join(contentDir, 'seasons');
+  let seasonHistory = "### 🏆 All Seasons\n\n";
+
+  if (fs.existsSync(seasonsDir)) {
+    const seasonFiles = fs.readdirSync(seasonsDir).filter(f => f.endsWith('.md'));
+    if (seasonFiles.length > 0) {
+      seasonHistory += "| Season | Team | Position | Games Folder |\n|---|---|---|---|\n";
+
+      for (const seasonFile of seasonFiles) {
+        const seasonPath = path.join(seasonsDir, seasonFile);
+        const seasonContent = fs.readFileSync(seasonPath, 'utf8');
+        const seasonParsed = matter(seasonContent);
+
+        if (seasonParsed.data.type === 'baseball-season-summary') {
+          const seasonName = seasonParsed.data.season || 'Unknown Season';
+          const team = seasonParsed.data.team || 'Unknown Team';
+          const position = seasonParsed.data.player_position || 'Unknown Position';
+          const gamesFolder = seasonParsed.data.games_folder || 'games/';
+
+          seasonHistory += `| [${seasonName}](seasons/${seasonFile.replace('.md', '')}) | ${team} | ${position} | ${gamesFolder} |\n`;
+        }
+      }
+    } else {
+      seasonHistory += "*No season data found. Create season cards in the 'seasons' folder.*\n\n";
+    }
+  } else {
+    seasonHistory += "*No season data found. Create season cards in the 'seasons' folder.*\n\n";
+  }
+
+  // Career milestones
+  let milestones = [];
+  const careerAVG = careerTotals.AB ? (careerTotals.H / careerTotals.AB) : 0;
+
+  if (careerTotals.H >= 50) milestones.push("🏆 50+ Career Hits");
+  if (careerTotals.H >= 100) milestones.push("🏆 100+ Career Hits");
+  if (careerTotals.HR >= 5) milestones.push("💥 5+ Career Home Runs");
+  if (careerTotals.HR >= 10) milestones.push("💥 10+ Career Home Runs");
+  if (careerTotals.RBI >= 50) milestones.push("🎯 50+ Career RBIs");
+  if (careerTotals.RBI >= 100) milestones.push("🎯 100+ Career RBIs");
+  if (careerTotals.gamesPlayed >= 50) milestones.push("🎮 50+ Games Played");
+  if (careerTotals.gamesPlayed >= 100) milestones.push("🎮 100+ Games Played");
+  if (careerAVG >= 0.300) milestones.push("⭐ .300+ Career Average");
+  if (careerTotals.seasons >= 3) milestones.push("🏃‍♂️ 3+ Seasons Veteran");
+
+  let milestonesSection = "### 🏆 Career Milestones\n\n";
+  if (milestones.length > 0) {
+    for (const milestone of milestones) {
+      milestonesSection += `- ${milestone}\n`;
+    }
+  } else {
+    milestonesSection += "*Keep playing to unlock career milestones!*\n";
+  }
+
+  milestonesSection += "\n### 🌟 Personal Bests\n\n*Personal best tracking coming soon - will show single-game and season records*\n\n";
+
+  return {
+    seasonHistory,
+    milestonesSection
+  };
+}
+
+// Process career statistics index page
+function processIndexPage(indexPath, contentDir) {
+  const content = fs.readFileSync(indexPath, 'utf8');
+  const parsed = matter(content);
+
+  // Calculate career statistics
+  const careerTotals = calculateCareerStats(contentDir);
+  const careerTables = generateCareerTables(careerTotals, contentDir);
+  const careerExtras = generateCareerExtras(careerTotals, contentDir);
+
+  let processedContent = parsed.content;
+
+  // Replace the first DataviewJS block (career statistics)
+  processedContent = processedContent.replace(
+    /```dataviewjs\s*\/\/ Get all season files[\s\S]*?```/,
+    `${careerTables.careerOverview}
+
+${careerTables.careerHittingTable}
+
+${careerTables.careerRatesTable}
+
+${careerTables.advancedMetricsTable}
+
+${careerTables.careerFieldingTable}
+
+${careerTables.careerPitchingSection}`
+  );
+
+  // Replace the second DataviewJS block (season history)
+  processedContent = processedContent.replace(
+    /```dataviewjs\s*\/\/ Display all seasons with links[\s\S]*?```/,
+    careerExtras.seasonHistory
+  );
+
+  // Replace the third DataviewJS block (career highlights & milestones)
+  processedContent = processedContent.replace(
+    /```dataviewjs\s*\/\/ Recalculate career totals for milestones[\s\S]*?```/,
+    careerExtras.milestonesSection
+  );
+
+  // Remove any remaining dataviewjs blocks
+  processedContent = processedContent.replace(
+    /```dataviewjs[\s\S]*?```/g,
+    '*[Advanced analytics features work in Obsidian - static data shown here]*'
+  );
+
+  // Reconstruct the full file with frontmatter
+  const fullProcessedContent = matter.stringify(processedContent, parsed.data);
+  return fullProcessedContent;
+}
+
 // Process a season card file
 function processSeasonCard(filePath, gamesFolder) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -462,6 +721,19 @@ ${tables.fieldingPercentage}`
 // Main function
 function main() {
   const contentDir = './content';
+
+  // Process index.md file (career statistics page)
+  const indexPath = path.join(contentDir, 'index.md');
+  if (fs.existsSync(indexPath)) {
+    console.log('Processing career statistics page: index.md');
+    try {
+      const processedContent = processIndexPage(indexPath, contentDir);
+      fs.writeFileSync(indexPath, processedContent);
+      console.log('✅ Successfully processed index.md');
+    } catch (error) {
+      console.error('❌ Error processing index.md:', error.message);
+    }
+  }
 
   // Process all season card files
   const seasonsDir = path.join(contentDir, 'seasons');

@@ -294,7 +294,7 @@ dv.paragraph(`**Games Played Goal:** 8 → Currently ${gamesPlayed} ${gamesPlaye
 ---
 
 > [!star] 🏆 Highlights
-- **Best Game:**
-- **Key Breakthrough:**
-- **Next Focus Area:**
-- **End of Season Goals:**
+> - **Best Game:**
+> - **Key Breakthrough:**
+> - **Next Focus Area:**
+> - **End of Season Goals:**
