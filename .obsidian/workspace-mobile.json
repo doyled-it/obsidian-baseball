@@ -113,7 +113,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "Untitled.md",
+            "file": "index.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -172,6 +172,8 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
+    "Glossary.md",
+    "index.md",
     "templates/season baseball card.md",
     "seasons/Summer 2025.md",
     "seasons",
@@ -185,8 +187,6 @@
     "quartz/components",
     "quartz",
     "quartz.layout.ts",
-    "index.md",
-    "Glossary.md",
     "games/2025/summer/2025-09-21.md",
     "Untitled.md",
     "games/2025/summer/2025-09-07.md",
