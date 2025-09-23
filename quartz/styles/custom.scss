@@ -51,21 +51,64 @@ div[class*="right"],
   }
 }
 
-// Force correct explorer title
+// Force correct explorer title - multiple approaches
 .explorer h1,
-.explorer .explorer-title {
-  &::after {
-    content: "⚾ Baseball Analytics" !important;
-  }
-
-  // Hide original text
+.explorer .explorer-title,
+.explorer-title,
+h1:contains("Quartz"),
+.left h1,
+.sidebar h1 {
+  // Hide original text completely
   font-size: 0 !important;
+  line-height: 0 !important;
 
-  &::after {
+  &::before {
+    content: "⚾ Baseball Analytics" !important;
     font-size: 1.2rem !important;
     font-weight: bold !important;
     color: var(--darkgray) !important;
+    line-height: normal !important;
+    display: block !important;
   }
+}
+
+// Alternative approach for explorer title
+.explorer {
+  h1 {
+    text-indent: -9999px !important;
+    position: relative !important;
+
+    &::before {
+      content: "⚾ Baseball Analytics" !important;
+      text-indent: 0 !important;
+      position: absolute !important;
+      left: 0 !important;
+      top: 0 !important;
+      font-size: 1.2rem !important;
+      font-weight: bold !important;
+      color: var(--darkgray) !important;
+    }
+  }
+}
+
+// JavaScript to force remove problematic elements
+script[type="text/javascript"] {
+  display: block;
+}
+
+// Add custom script to clean up the page
+body::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  /* This will trigger custom JavaScript to run */
+}
+
+// Force hide any elements with Quartz in the text
+*:contains("Quartz 4"),
+*:contains("Quartz4") {
+  display: none !important;
 }
 
 // Baseball-themed colors

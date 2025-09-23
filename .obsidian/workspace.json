@@ -149,6 +149,9 @@
   },
   "active": "839301b1721e3c7d",
   "lastOpenFiles": [
+    "quartz/components/scripts/cleanup.inline.ts",
+    "quartz/components/scripts",
+    "quartz/components",
     "templates/season baseball card.md",
     "seasons/Summer 2025.md",
     "templates/game template.md",
@@ -163,8 +166,6 @@
     "quartz.layout.ts.tmp.7539.1758582318912",
     "package.json",
     "quartz/styles/custom.scss",
-    "quartz/styles",
-    "quartz",
     "README.md",
     "CLAUDE.md",
     "games/2025/summer/2025-09-07.md",

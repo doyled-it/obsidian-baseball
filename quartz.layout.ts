@@ -13,6 +13,30 @@ export const sharedPageComponents: SharedLayout = {
   }),
 }
 
+// Create a completely clean Explorer component with forced title
+const BaseballExplorer = () => Component.Explorer({
+  title: "⚾ Baseball Analytics",
+  folderClickBehavior: "collapse",
+  folderDefaultState: "collapsed",
+  useSavedState: false,
+  mapFn: (node) => {
+    // Custom ordering for baseball content
+    if (node.name === "games") {
+      node.displayName = "📅 Game Logs"
+    }
+    if (node.name === "seasons") {
+      node.displayName = "🏆 Season Cards"
+    }
+    if (node.name === "templates") {
+      return undefined // Hide templates folder
+    }
+    if (node.file?.slug?.includes("Baseball Card")) {
+      node.displayName = `⚾ ${node.displayName}`
+    }
+    return node
+  },
+})
+
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
@@ -25,32 +49,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(
-      Component.Explorer({
-        title: "⚾ Baseball Analytics",
-        folderClickBehavior: "collapse",
-        folderDefaultState: "collapsed",
-        useSavedState: true,
-        mapFn: (node) => {
-          // Custom ordering for baseball content
-          if (node.name === "games") {
-            node.displayName = "📅 Game Logs"
-          }
-          if (node.name === "seasons") {
-            node.displayName = "🏆 Season Cards"
-          }
-          if (node.name === "templates") {
-            return undefined // Hide templates folder
-          }
-          if (node.file?.slug?.includes("Baseball Card")) {
-            node.displayName = `⚾ ${node.displayName}`
-          }
-          return node
-        },
-      }),
-    ),
+    Component.DesktopOnly(BaseballExplorer()),
   ],
-  right: [],
+  right: [], // Completely empty - no components at all
   afterBody: [],
 }
 
@@ -61,15 +62,8 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(
-      Component.Explorer({
-        title: "⚾ Baseball Analytics",
-        folderClickBehavior: "collapse",
-        folderDefaultState: "collapsed",
-        useSavedState: true,
-      })
-    ),
+    Component.DesktopOnly(BaseballExplorer()),
   ],
-  right: [],
+  right: [], // Completely empty - no components at all
   afterBody: [],
 }
