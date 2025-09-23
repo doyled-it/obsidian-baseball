@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "Glossary.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.md",
+                "file": "Glossary.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "index.md",
+                "file": "Glossary.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md"
+                "file": "Glossary.md"
               }
             }
           }
@@ -149,14 +149,15 @@
   },
   "active": "839301b1721e3c7d",
   "lastOpenFiles": [
+    "index.md",
+    "README.md",
+    "Glossary.md",
     "templates/season baseball card.md",
     "seasons/Summer 2025.md",
     "quartz/components/scripts/cleanup.inline.ts",
     "quartz/components/scripts",
     "quartz/components",
     "templates/game template.md",
-    "Glossary.md",
-    "index.md",
     "index.md.tmp.7539.1758586224764",
     "Glossary.md.tmp.7539.1758585957112",
     "games/2025/summer/2025-09-21.md",
@@ -165,7 +166,6 @@
     "scripts",
     "quartz.layout.ts.tmp.7539.1758582318912",
     "package.json",
-    "README.md",
     "CLAUDE.md",
     "games/2025/summer/2025-09-07.md",
     "games/2025/summer/2025-09-14.md",
