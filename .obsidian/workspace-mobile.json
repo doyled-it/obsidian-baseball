@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "templates/season baseball card.md",
-                "mode": "source",
+                "file": "index.md",
+                "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "season baseball card"
+              "title": "index"
             }
           }
         ],
@@ -172,6 +172,7 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
+    "templates/season baseball card.md",
     "seasons/Summer 2025.md",
     "seasons",
     "scripts/process-dataview.js",
@@ -190,7 +191,6 @@
     "Untitled.md",
     "games/2025/summer/2025-09-07.md",
     "games/2025/summer/2025-09-14.md",
-    "templates/season baseball card.md",
     "Summer 2025 Baseball Card.md",
     "templates/game template.md",
     "games/Untitled.md"
