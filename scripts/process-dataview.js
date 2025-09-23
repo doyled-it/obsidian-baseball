@@ -583,12 +583,12 @@ function generateCareerExtras(careerTotals, contentDir) {
   };
 
   // Find bests across all seasons and games
-  const seasonsDir = path.join(contentDir, 'seasons');
-  if (fs.existsSync(seasonsDir)) {
-    const seasonFiles = fs.readdirSync(seasonsDir).filter(f => f.endsWith('.md'));
+  const seasonsDirectory = path.join(contentDir, 'seasons');
+  if (fs.existsSync(seasonsDirectory)) {
+    const seasonFiles = fs.readdirSync(seasonsDirectory).filter(f => f.endsWith('.md'));
 
     for (const seasonFile of seasonFiles) {
-      const seasonPath = path.join(seasonsDir, seasonFile);
+      const seasonPath = path.join(seasonsDirectory, seasonFile);
       const seasonContent = fs.readFileSync(seasonPath, 'utf8');
       const seasonParsed = matter(seasonContent);
 
@@ -850,12 +850,12 @@ function main() {
   }
 
   // Process all season card files
-  const seasonsDir = path.join(contentDir, 'seasons');
-  if (fs.existsSync(seasonsDir)) {
-    const seasonFiles = fs.readdirSync(seasonsDir).filter(f => f.endsWith('.md'));
+  const seasonsFolder = path.join(contentDir, 'seasons');
+  if (fs.existsSync(seasonsFolder)) {
+    const seasonFiles = fs.readdirSync(seasonsFolder).filter(f => f.endsWith('.md'));
 
     for (const seasonFile of seasonFiles) {
-      const seasonPath = path.join(seasonsDir, seasonFile);
+      const seasonPath = path.join(seasonsFolder, seasonFile);
       const gamesFolder = path.join(contentDir, 'games');
 
       console.log(`Processing season card: ${seasonFile}`);
