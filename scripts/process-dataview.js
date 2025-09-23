@@ -570,7 +570,121 @@ function generateCareerExtras(careerTotals, contentDir) {
     milestonesSection += "*Keep playing to unlock career milestones!*\n";
   }
 
-  milestonesSection += "\n### 🌟 Personal Bests\n\n*Personal best tracking coming soon - will show single-game and season records*\n\n";
+  // Calculate actual personal bests
+  let singleGameBests = {
+    hits: 0, hrs: 0, rbis: 0, runs: 0, walks: 0, stolenBases: 0,
+    gameDate: '', gameOpponent: ''
+  };
+
+  let seasonBests = {
+    bestAVG: 0, bestOBP: 0, bestSLG: 0, bestOPS: 0,
+    mostHits: 0, mostHRs: 0, mostRBIs: 0, mostGames: 0,
+    seasonYear: ''
+  };
+
+  // Find bests across all seasons and games
+  const seasonsDir = path.join(contentDir, 'seasons');
+  if (fs.existsSync(seasonsDir)) {
+    const seasonFiles = fs.readdirSync(seasonsDir).filter(f => f.endsWith('.md'));
+
+    for (const seasonFile of seasonFiles) {
+      const seasonPath = path.join(seasonsDir, seasonFile);
+      const seasonContent = fs.readFileSync(seasonPath, 'utf8');
+      const seasonParsed = matter(seasonContent);
+
+      if (seasonParsed.data.type === 'baseball-season-summary') {
+        const gamesFolder = path.join(contentDir, seasonParsed.data.games_folder || 'games/');
+
+        if (fs.existsSync(gamesFolder)) {
+          const gameFiles = findGameFiles(gamesFolder);
+          let seasonTotals = { AB: 0, H: 0, HR: 0, RBI: 0, BB: 0, HBP: 0, SF: 0, '2B': 0, '3B': 0 };
+
+          for (const gameFile of gameFiles) {
+            const gameData = parseGameFile(gameFile);
+            if (gameData && gameData.frontmatter.type === 'baseball-stats') {
+              const stats = gameData.stats;
+
+              // Check single-game records
+              const gameHits = N(stats.H);
+              const gameHRs = N(stats.HR);
+              const gameRBIs = N(stats.RBI);
+              const gameRuns = N(stats.R);
+              const gameWalks = N(stats.BB);
+              const gameSB = N(stats.SB);
+
+              if (gameHits > singleGameBests.hits) {
+                singleGameBests.hits = gameHits;
+                singleGameBests.gameDate = gameData.frontmatter.date || 'Unknown Date';
+                singleGameBests.gameOpponent = gameData.frontmatter.opponent || 'Unknown';
+              }
+              if (gameHRs > singleGameBests.hrs) singleGameBests.hrs = gameHRs;
+              if (gameRBIs > singleGameBests.rbis) singleGameBests.rbis = gameRBIs;
+              if (gameRuns > singleGameBests.runs) singleGameBests.runs = gameRuns;
+              if (gameWalks > singleGameBests.walks) singleGameBests.walks = gameWalks;
+              if (gameSB > singleGameBests.stolenBases) singleGameBests.stolenBases = gameSB;
+
+              // Accumulate season totals
+              seasonTotals.AB += N(stats.AB); seasonTotals.H += N(stats.H); seasonTotals.HR += N(stats.HR);
+              seasonTotals.RBI += N(stats.RBI); seasonTotals.BB += N(stats.BB); seasonTotals.HBP += N(stats.HBP);
+              seasonTotals.SF += N(stats.SF); seasonTotals['2B'] += N(stats['2B']); seasonTotals['3B'] += N(stats['3B']);
+            }
+          }
+
+          // Calculate season rates
+          const seasonAVG = seasonTotals.AB ? (seasonTotals.H / seasonTotals.AB) : 0;
+          const obpDen = (seasonTotals.AB + seasonTotals.BB + seasonTotals.HBP + seasonTotals.SF);
+          const seasonOBP = obpDen ? ((seasonTotals.H + seasonTotals.BB + seasonTotals.HBP) / obpDen) : 0;
+          const seasonSingles = Math.max(0, seasonTotals.H - seasonTotals['2B'] - seasonTotals['3B'] - seasonTotals.HR);
+          const seasonTB = seasonSingles + 2*seasonTotals['2B'] + 3*seasonTotals['3B'] + 4*seasonTotals.HR;
+          const seasonSLG = seasonTotals.AB ? (seasonTB / seasonTotals.AB) : 0;
+          const seasonOPS = seasonOBP + seasonSLG;
+
+          // Check season records
+          if (seasonAVG > seasonBests.bestAVG) {
+            seasonBests.bestAVG = seasonAVG;
+            seasonBests.seasonYear = seasonParsed.data.season || 'Unknown Season';
+          }
+          if (seasonOBP > seasonBests.bestOBP) seasonBests.bestOBP = seasonOBP;
+          if (seasonSLG > seasonBests.bestSLG) seasonBests.bestSLG = seasonSLG;
+          if (seasonOPS > seasonBests.bestOPS) seasonBests.bestOPS = seasonOPS;
+          if (seasonTotals.H > seasonBests.mostHits) seasonBests.mostHits = seasonTotals.H;
+          if (seasonTotals.HR > seasonBests.mostHRs) seasonBests.mostHRs = seasonTotals.HR;
+          if (seasonTotals.RBI > seasonBests.mostRBIs) seasonBests.mostRBIs = seasonTotals.RBI;
+          if (gameFiles.length > seasonBests.mostGames) seasonBests.mostGames = gameFiles.length;
+        }
+      }
+    }
+  }
+
+  milestonesSection += "\n### 🌟 Personal Bests\n\n";
+
+  // Display single-game bests
+  milestonesSection += "#### Single-Game Records\n\n";
+  if (singleGameBests.hits > 0) {
+    milestonesSection += `**Most Hits:** ${singleGameBests.hits} ${singleGameBests.gameDate ? `(${singleGameBests.gameDate} vs ${singleGameBests.gameOpponent})` : ''}\n\n`;
+    if (singleGameBests.hrs > 0) milestonesSection += `**Most Home Runs:** ${singleGameBests.hrs}\n\n`;
+    if (singleGameBests.rbis > 0) milestonesSection += `**Most RBIs:** ${singleGameBests.rbis}\n\n`;
+    if (singleGameBests.runs > 0) milestonesSection += `**Most Runs:** ${singleGameBests.runs}\n\n`;
+    if (singleGameBests.walks > 0) milestonesSection += `**Most Walks:** ${singleGameBests.walks}\n\n`;
+    if (singleGameBests.stolenBases > 0) milestonesSection += `**Most Stolen Bases:** ${singleGameBests.stolenBases}\n\n`;
+  } else {
+    milestonesSection += "*No single-game records found yet*\n\n";
+  }
+
+  // Display season bests
+  milestonesSection += "#### Season Records\n\n";
+  if (seasonBests.bestAVG > 0) {
+    milestonesSection += `**Best Season Average:** ${seasonBests.bestAVG.toFixed(3)} ${seasonBests.seasonYear ? `(${seasonBests.seasonYear})` : ''}\n\n`;
+    if (seasonBests.bestOBP > 0) milestonesSection += `**Best Season OBP:** ${seasonBests.bestOBP.toFixed(3)}\n\n`;
+    if (seasonBests.bestSLG > 0) milestonesSection += `**Best Season SLG:** ${seasonBests.bestSLG.toFixed(3)}\n\n`;
+    if (seasonBests.bestOPS > 0) milestonesSection += `**Best Season OPS:** ${seasonBests.bestOPS.toFixed(3)}\n\n`;
+    if (seasonBests.mostHits > 0) milestonesSection += `**Most Season Hits:** ${seasonBests.mostHits}\n\n`;
+    if (seasonBests.mostHRs > 0) milestonesSection += `**Most Season HRs:** ${seasonBests.mostHRs}\n\n`;
+    if (seasonBests.mostRBIs > 0) milestonesSection += `**Most Season RBIs:** ${seasonBests.mostRBIs}\n\n`;
+    if (seasonBests.mostGames > 0) milestonesSection += `**Most Games Played:** ${seasonBests.mostGames}\n\n`;
+  } else {
+    milestonesSection += "*No season records found yet*\n\n";
+  }
 
   return {
     seasonHistory,
