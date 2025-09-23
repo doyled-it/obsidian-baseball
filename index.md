@@ -184,8 +184,50 @@ if (seasons.length > 0) {
 ## 🎯 Career Highlights & Milestones
 
 ```dataviewjs
-// Find career highlights across all seasons
-const allSeasons = dv.pages('"seasons"').where(p => p.type === "baseball-season-summary");
+// Recalculate career totals for milestones
+const seasonPages = dv.pages('"seasons"').where(p => p.type === "baseball-season-summary");
+
+// Helper function to safely convert values to numbers
+const N = (v) => {
+  if (v === null || v === undefined || v === '') return 0;
+  const num = Number(v);
+  return isFinite(num) ? num : 0;
+};
+
+// Initialize career totals
+let careerTotals = {
+  seasons: 0, gamesPlayed: 0,
+  AB: 0, H: 0, '2B': 0, '3B': 0, HR: 0, RBI: 0, R: 0, BB: 0, K: 0, HBP: 0, SF: 0, SB: 0, CS: 0,
+  RISP: 0, RISP_H: 0, hard_contact: 0, pitches_seen: 0,
+  PO: 0, A: 0, E: 0, TC: 0, DP: 0,
+  IP: 0, H_p: 0, R_p: 0, ER: 0, BB_p: 0, K_p: 0, HR_p: 0, BF: 0, PC: 0
+};
+
+// Process each season
+for (const season of seasonPages) {
+  careerTotals.seasons++;
+  const gamesFolder = season.games_folder || 'games/';
+  const seasonGames = dv.pages('"' + gamesFolder + '"').where(p => p.type === "baseball-stats");
+  const playedGames = seasonGames.where(p =>
+    (N(p.AB) > 0) || (N(p.H) > 0) || (N(p.PO) > 0) || (N(p.A) > 0) || (N(p.IP) > 0)
+  );
+  careerTotals.gamesPlayed += playedGames.length;
+
+  for (const game of playedGames) {
+    careerTotals.AB += N(game.AB); careerTotals.H += N(game.H); careerTotals['2B'] += N(game['2B']);
+    careerTotals['3B'] += N(game['3B']); careerTotals.HR += N(game.HR); careerTotals.RBI += N(game.RBI);
+    careerTotals.R += N(game.R); careerTotals.BB += N(game.BB); careerTotals.K += N(game.K);
+    careerTotals.HBP += N(game.HBP); careerTotals.SF += N(game.SF); careerTotals.SB += N(game.SB); careerTotals.CS += N(game.CS);
+    careerTotals.RISP += N(game.RISP); careerTotals.RISP_H += N(game.RISP_H);
+    careerTotals.hard_contact += N(game.hard_contact); careerTotals.pitches_seen += N(game.pitches_seen);
+    careerTotals.PO += N(game.PO); careerTotals.A += N(game.A); careerTotals.E += N(game.E);
+    careerTotals.TC += N(game.TC); careerTotals.DP += N(game.DP);
+    careerTotals.IP += N(game.IP); careerTotals.H_p += N(game.H_p); careerTotals.R_p += N(game.R_p);
+    careerTotals.ER += N(game.ER); careerTotals.BB_p += N(game.BB_p); careerTotals.K_p += N(game.K_p);
+    careerTotals.HR_p += N(game.HR_p); careerTotals.BF += N(game.BF); careerTotals.PC += N(game.PC);
+  }
+}
+
 let careerHighlights = [];
 let milestones = [];
 
