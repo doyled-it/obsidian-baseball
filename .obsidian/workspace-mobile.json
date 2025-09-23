@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
-                "mode": "preview",
+                "file": "games/2025/summer/2025-09-21.md",
+                "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "2025-09-21"
             }
           }
         ]
@@ -157,8 +157,8 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
-    "games/2025/summer/2025-09-21.md",
     "index.md",
+    "games/2025/summer/2025-09-21.md",
     "Glossary.md",
     "templates/season baseball card.md",
     "seasons/Summer 2025.md",
