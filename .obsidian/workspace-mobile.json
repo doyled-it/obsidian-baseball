@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "games/2025/summer/2025-09-28 (2).md",
-                "mode": "source",
+                "file": "seasons/Summer 2025.md",
+                "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2025-09-28 (2)"
+              "title": "Summer 2025"
             }
           }
         ]
@@ -98,7 +98,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "games/2025/summer/2025-09-28 (2).md",
+            "file": "seasons/Summer 2025.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -156,14 +156,14 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
-    "Glossary.md",
     "games/2025/summer/2025-09-28 (2).md",
     "games/2025/summer/2025-09-28 (1).md",
+    "seasons/Summer 2025.md",
+    "Glossary.md",
     "games/2025/summer/2025-09-14.md",
     "games/2025/summer/2025-09-21.md",
     "index.md",
     "templates/season baseball card.md",
-    "seasons/Summer 2025.md",
     "seasons",
     "scripts/process-dataview.js",
     "scripts",
