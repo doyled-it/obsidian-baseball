@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "games/2025/summer/2025-09-14.md",
-                "mode": "preview",
+                "file": "games/2025/summer/Untitled.md",
+                "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2025-09-14"
+              "title": "Untitled"
             }
           }
         ]
@@ -156,6 +156,8 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
+    "games/2025/summer/2025-09-14.md",
+    "games/2025/summer/Untitled.md",
     "games/2025/summer/2025-09-21.md",
     "index.md",
     "Glossary.md",
@@ -174,7 +176,6 @@
     "quartz.layout.ts",
     "Untitled.md",
     "games/2025/summer/2025-09-07.md",
-    "games/2025/summer/2025-09-14.md",
     "Summer 2025 Baseball Card.md",
     "templates/game template.md",
     "games/Untitled.md"
