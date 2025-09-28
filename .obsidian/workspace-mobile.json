@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "games/2025/summer/2025-09-28 (1).md",
+                "file": "games/2025/summer/2025-09-28 (2).md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2025-09-28 (1)"
+              "title": "2025-09-28 (2)"
             }
           }
         ]
@@ -98,7 +98,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "games/2025/summer/2025-09-28 (1).md",
+            "file": "games/2025/summer/2025-09-28 (2).md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -156,8 +156,8 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
-    "games/2025/summer/2025-09-28 (2).md",
     "games/2025/summer/2025-09-28 (1).md",
+    "games/2025/summer/2025-09-28 (2).md",
     "games/2025/summer/2025-09-14.md",
     "games/2025/summer/2025-09-21.md",
     "index.md",
