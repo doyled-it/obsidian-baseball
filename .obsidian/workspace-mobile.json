@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "games/2025/summer/2025-10-19.md",
-                "mode": "source",
+                "file": "seasons/Summer 2025.md",
+                "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2025-10-19"
+              "title": "Summer 2025"
             }
           }
         ]
@@ -156,8 +156,8 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
-    "games/2025/summer/2025-10-12.md",
     "games/2025/summer/2025-10-19.md",
+    "games/2025/summer/2025-10-12.md",
     "games/2025/summer/2025-09-28 (2).md",
     "games/2025/summer/2025-10-05.md",
     "seasons/Summer 2025.md",
