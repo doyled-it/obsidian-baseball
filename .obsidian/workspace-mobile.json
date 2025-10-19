@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "games/2025/summer/2025-10-12.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
@@ -98,7 +98,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "games/2025/summer/2025-09-28 (2).md",
+            "file": "seasons/Summer 2025.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -157,8 +157,9 @@
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
     "games/2025/summer/2025-09-28 (2).md",
-    "games/2025/summer/2025-10-12.md",
+    "games/2025/summer/2025-10-05.md",
     "seasons/Summer 2025.md",
+    "games/2025/summer/2025-10-12.md",
     "games/2025/summer/2025-09-28 (1).md",
     "Glossary.md",
     "games/2025/summer/2025-09-14.md",
