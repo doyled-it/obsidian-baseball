@@ -1,4 +1,40 @@
-# Baseball Statistics Tracker
+# Michael Doyle Baseball Statistics
+
+This Obsidian vault tracks personal baseball statistics with automatic aggregation and professional web-based analytics.
+
+## 🌐 Live Stats
+
+**View your stats online:** https://doyled-it.github.io/obsidian-baseball/
+
+Your baseball statistics are automatically published to GitHub Pages whenever you push changes!
+
+## 🚀 How It Works
+
+1. **Track Games**: Add markdown files to `games/YYYY/season/` with your stats
+2. **Auto-Process**: GitHub Actions automatically processes stats from your markdown files
+3. **Auto-Deploy**: Stats page updates automatically on every push to main branch
+
+## 📁 Key Files
+
+- **`index.html`, `styles.css`, `app.js`**: Beautiful stats page (GitHub Pages site)
+- **`process-stats.js`**: Processes Obsidian notes into JSON data
+- **`games/`**: Individual game markdown files with stats
+- **`seasons/`**: Season summary cards (Obsidian Dataview)
+
+## 🛠 Local Development
+
+```bash
+# Process stats locally
+npm run process
+
+# View site locally
+npm run serve
+# Then open http://localhost:8000
+```
+
+---
+
+## 📊 Statistics Reference
 
 This Obsidian vault tracks personal baseball statistics with automatic aggregation and rate calculations.
 

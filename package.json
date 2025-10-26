@@ -1,11 +1,11 @@
 {
-  "name": "obsidian-baseball",
-  "version": "1.0.0",
-  "description": "Michael Doyle Baseball Statistics Analytics",
+  "name": "obsidian-baseball-stats",
+  "version": "2.0.0",
+  "description": "Michael Doyle Baseball Statistics - Personal performance analytics and tracking",
   "scripts": {
-    "build": "quartz build",
-    "serve": "quartz build --serve",
-    "sync": "quartz sync"
+    "process": "node process-stats.js",
+    "test": "node process-stats.js && echo 'Stats processed successfully!'",
+    "serve": "python3 -m http.server 8000"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "statistics",
     "analytics",
     "obsidian",
-    "quartz"
+    "personal-stats"
   ],
   "author": "Michael Doyle",
   "license": "MIT"

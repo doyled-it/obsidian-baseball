@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Doyle - Baseball Statistics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚾</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Michael Doyle</h1>
+            <p class="subtitle">Baseball Statistics & Performance Analytics</p>
+        </div>
+
+        <!-- Season Tabs -->
+        <div class="season-tabs" id="seasonTabs">
+            <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Player Info Card -->
+        <div class="player-info-card">
+            <div class="info-item">
+                <span class="info-label">Team</span>
+                <span class="info-value" id="teamName">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Position</span>
+                <span class="info-value" id="position">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Games Played</span>
+                <span class="info-value" id="gamesPlayed">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Team Record</span>
+                <span class="info-value" id="teamRecord">-</span>
+            </div>
+        </div>
+
+        <!-- Stats Container -->
+        <div class="stats-grid">
+            <!-- Hitting Stats -->
+            <div class="stats-section">
+                <h2 class="section-title">Hitting Performance</h2>
+
+                <div class="stats-subsection">
+                    <h3 class="subsection-title">📊 Basic Totals</h3>
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th><span data-metric="AB">AB</span></th>
+                                <th><span data-metric="H">H</span></th>
+                                <th><span data-metric="2B">2B</span></th>
+                                <th><span data-metric="3B">3B</span></th>
+                                <th><span data-metric="HR">HR</span></th>
+                                <th><span data-metric="RBI">RBI</span></th>
+                                <th><span data-metric="R">R</span></th>
+                                <th><span data-metric="BB">BB</span></th>
+                                <th><span data-metric="K">K</span></th>
+                                <th><span data-metric="SB">SB</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="hittingTotalsBody">
+                            <tr>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="stats-subsection">
+                    <h3 class="subsection-title">📈 Standard Rates</h3>
+                    <div class="rate-stats">
+                        <div class="rate-card">
+                            <div class="rate-label" data-metric="AVG">AVG</div>
+                            <div class="rate-value" id="avg">-</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="rate-label" data-metric="OBP">OBP</div>
+                            <div class="rate-value" id="obp">-</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="rate-label" data-metric="SLG">SLG</div>
+                            <div class="rate-value" id="slg">-</div>
+                        </div>
+                        <div class="rate-card highlight">
+                            <div class="rate-label" data-metric="OPS">OPS</div>
+                            <div class="rate-value" id="ops">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-subsection">
+                    <h3 class="subsection-title">🔬 Advanced Metrics</h3>
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th><span data-metric="BABIP">BABIP</span></th>
+                                <th><span data-metric="ISO">ISO</span></th>
+                                <th><span data-metric="XBH%">XBH%</span></th>
+                                <th><span data-metric="BB%">BB%</span></th>
+                                <th><span data-metric="K%">K%</span></th>
+                                <th><span data-metric="Clutch AVG">Clutch AVG</span></th>
+                                <th><span data-metric="Contact Quality">Contact Quality</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="advancedMetricsBody">
+                            <tr>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="metrics-cards">
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="With RISP">With RISP</div>
+                            <div class="metric-value" id="rispStats">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="Hard Contact">Hard Contact Rate</div>
+                            <div class="metric-value" id="hardContact">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="Pitches/PA">Pitches/PA</div>
+                            <div class="metric-value" id="pitchesPerPA">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fielding Stats -->
+            <div class="stats-section">
+                <h2 class="section-title">Fielding Performance</h2>
+
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th><span data-metric="PO">PO</span></th>
+                            <th><span data-metric="A">A</span></th>
+                            <th><span data-metric="E">E</span></th>
+                            <th><span data-metric="TC">TC</span></th>
+                            <th><span data-metric="DP">DP</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="fieldingBody">
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="metrics-cards">
+                    <div class="metric-card">
+                        <div class="metric-label" data-metric="Fielding %">Fielding %</div>
+                        <div class="metric-value" id="fieldingPct">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label" data-metric="Range Factor">Range Factor</div>
+                        <div class="metric-value" id="rangeFactor">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pitching Stats -->
+            <div class="stats-section">
+                <h2 class="section-title">Pitching Performance</h2>
+
+                <div id="pitchingContent">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th><span data-metric="IP">IP</span></th>
+                                <th><span data-metric="H">H</span></th>
+                                <th><span data-metric="R">R</span></th>
+                                <th><span data-metric="ER">ER</span></th>
+                                <th><span data-metric="BB">BB</span></th>
+                                <th><span data-metric="K">K</span></th>
+                                <th><span data-metric="HR">HR</span></th>
+                                <th><span data-metric="BF">BF</span></th>
+                                <th><span data-metric="PC">PC</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="pitchingBody">
+                            <tr>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="metrics-cards">
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="ERA">ERA</div>
+                            <div class="metric-value" id="era">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="WHIP">WHIP</div>
+                            <div class="metric-value" id="whip">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="K/BB">K/BB</div>
+                            <div class="metric-value" id="kbb">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="K/9">K/9</div>
+                            <div class="metric-value" id="k9">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="BB/9">BB/9</div>
+                            <div class="metric-value" id="bb9">-</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label" data-metric="Pitches/Batter">Pitches/Batter</div>
+                            <div class="metric-value" id="pitchesPerBatter">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Trends Section -->
+        <div class="trends-section">
+            <h2 class="section-title">Performance Trends</h2>
+
+            <!-- Season Goals -->
+            <div class="goals-container">
+                <h3 class="subsection-title">Season Goals</h3>
+                <div id="goalsGrid" class="goals-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Batting Average Trend -->
+            <div class="trend-chart-container">
+                <h3 class="subsection-title">Batting Average by Game</h3>
+                <div class="chart-hint">Click on any data point to see game details</div>
+                <canvas id="avgTrendChart" width="800" height="300"></canvas>
+                <div id="selectedGameInfo" class="selected-game-info" style="display: none;">
+                    <!-- Populated by JavaScript on click -->
+                </div>
+                <div class="trend-stats" id="trendStats">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Log Section -->
+        <div class="game-log-section">
+            <h2 class="section-title">Game Log</h2>
+            <div class="game-log-grid" id="gameLogGrid">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="update-info" id="updateInfo">
+            Last updated: <span id="lastUpdated">-</span>
+        </div>
+    </div>
+
+    <script src="stats-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
