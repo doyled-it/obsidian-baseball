@@ -177,6 +177,9 @@ table {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 
   th {
     background: var(--baseball-green);
@@ -185,6 +188,7 @@ table {
     text-align: center;
     font-weight: 600;
     font-size: 0.9rem;
+    white-space: nowrap;
   }
 
   td {
@@ -193,11 +197,18 @@ table {
     border-bottom: 1px solid var(--lightgray);
     font-family: var(--codeFont);
     font-weight: 500;
+    white-space: nowrap;
 
     &:first-child {
       font-weight: 600;
       background: var(--light);
     }
+  }
+
+  tbody, thead {
+    display: table;
+    width: 100%;
+    table-layout: auto;
   }
 
   tr:hover {
@@ -371,11 +382,19 @@ table {
   }
 
   table {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    margin: 1rem -1rem; // Allow table to extend to edges of container
+    width: calc(100% + 2rem);
+    border-radius: 0;
 
     th,
     td {
-      padding: 8px 12px;
+      padding: 6px 8px;
+      font-size: 0.75rem;
+    }
+
+    th {
+      font-size: 0.7rem;
     }
   }
 
@@ -383,6 +402,32 @@ table {
     flex-direction: column;
     gap: 0.5rem;
     text-align: center;
+  }
+
+  // Ensure content area doesn't cause horizontal scrolling
+  .center,
+  .page-content,
+  article {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
+
+// Extra small mobile devices
+@media (max-width: 480px) {
+  table {
+    font-size: 0.7rem;
+
+    th,
+    td {
+      padding: 4px 6px;
+      font-size: 0.7rem;
+    }
+
+    th {
+      font-size: 0.65rem;
+      padding: 6px 4px;
+    }
   }
 }
 
