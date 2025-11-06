@@ -11,10 +11,14 @@
             "id": "8c00b4c78021c472",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "games/2025/fall/2025-11-2.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "2025-11-2"
             }
           }
         ]
@@ -152,6 +156,7 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
+    "games/2025/fall/2025-11-2.md",
     "styles.css",
     "seasons/Fall 2025.md",
     "process-stats.js",
@@ -183,7 +188,6 @@
     "README.md",
     "quartz/components/scripts/cleanup.inline.ts",
     "quartz/styles/custom.scss",
-    "quartz/components/scripts",
     "Untitled.md",
     "games/2025/summer/2025-09-07.md",
     "Summer 2025 Baseball Card.md",
