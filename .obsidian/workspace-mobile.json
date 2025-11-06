@@ -11,14 +11,10 @@
             "id": "8c00b4c78021c472",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "seasons/Summer 2025.md",
-                "mode": "preview",
-                "source": true
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Summer 2025"
+              "title": "New tab"
             }
           }
         ]
@@ -156,8 +152,22 @@
   },
   "active": "8c00b4c78021c472",
   "lastOpenFiles": [
-    "games/2025/summer/2025-10-19.md",
+    "styles.css",
+    "seasons/Fall 2025.md",
+    "process-stats.js",
     "seasons/Summer 2025.md",
+    "index.html",
+    "games/2025/fall/2025-10-19.md",
+    "games/2025/fall/2025-10-12.md",
+    "games/2025/fall/2025-10-05.md",
+    "games/2025/fall/2025-09-28 (2).md",
+    "games/2025/fall/2025-09-28 (1).md",
+    "games/2025/fall/2025-09-21.md",
+    "games/2025/fall/2025-09-14.md",
+    "games/2025/fall/2025-09-07.md",
+    "games/2025/fall",
+    "app.js",
+    "games/2025/summer/2025-10-19.md",
     "games/2025/summer/2025-10-12.md",
     "games/2025/summer/2025-09-28 (2).md",
     "games/2025/summer/2025-10-05.md",
@@ -174,14 +184,9 @@
     "quartz/components/scripts/cleanup.inline.ts",
     "quartz/styles/custom.scss",
     "quartz/components/scripts",
-    "quartz/styles",
-    "quartz/components",
-    "quartz",
-    "quartz.layout.ts",
     "Untitled.md",
     "games/2025/summer/2025-09-07.md",
     "Summer 2025 Baseball Card.md",
-    "templates/game template.md",
-    "games/Untitled.md"
+    "templates/game template.md"
   ]
 }
