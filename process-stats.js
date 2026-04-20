@@ -316,11 +316,19 @@ function main() {
       player: 'Michael Doyle',
       team: 'Happy Sox',
       position: 'Utility (P/IF/OF)'
+    },
+    {
+      id: 'spring2026',
+      name: 'Spring 2026',
+      folder: 'games/2026/spring',
+      player: 'Michael Doyle',
+      team: 'Happy Sox',
+      position: 'Utility (P/IF/OF)'
     }
   ];
 
   const output = {
-    currentSeason: 'fall2025',
+    currentSeason: 'spring2026',
     lastUpdated: new Date().toISOString(),
     seasons: {}
   };

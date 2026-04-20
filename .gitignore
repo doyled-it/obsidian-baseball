@@ -26,3 +26,9 @@ Thumbs.db
 quartz/
 quartz.config.ts
 quartz.layout.ts
+
+# SDABL scrape artifacts (pulled on demand by the doyled-it site scraper)
+sdabl-snapshots/
+
+# One-shot maintenance scripts
+fix-ab.mjs
