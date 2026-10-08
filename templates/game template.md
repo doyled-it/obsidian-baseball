@@ -35,7 +35,6 @@ score:
 - PO:: 
 - A:: 
 - E:: 
-- TC:: 
 - DP:: 
 
 ## ⚾️ Pitching

@@ -67,7 +67,7 @@ for (const season of seasonPages) {
 
     // Fielding
     careerTotals.PO += N(game.PO); careerTotals.A += N(game.A); careerTotals.E += N(game.E);
-    careerTotals.TC += N(game.TC); careerTotals.DP += N(game.DP);
+    careerTotals.TC += N(game.PO) + N(game.A) + N(game.E); careerTotals.DP += N(game.DP);
 
     // Pitching
     careerTotals.IP += N(game.IP); careerTotals.H_p += N(game.H_p); careerTotals.R_p += N(game.R_p);
@@ -220,7 +220,7 @@ for (const season of seasonPages) {
     careerTotals.RISP += N(game.RISP); careerTotals.RISP_H += N(game.RISP_H);
     careerTotals.hard_contact += N(game.hard_contact); careerTotals.pitches_seen += N(game.pitches_seen);
     careerTotals.PO += N(game.PO); careerTotals.A += N(game.A); careerTotals.E += N(game.E);
-    careerTotals.TC += N(game.TC); careerTotals.DP += N(game.DP);
+    careerTotals.TC += N(game.PO) + N(game.A) + N(game.E); careerTotals.DP += N(game.DP);
     careerTotals.IP += N(game.IP); careerTotals.H_p += N(game.H_p); careerTotals.R_p += N(game.R_p);
     careerTotals.ER += N(game.ER); careerTotals.BB_p += N(game.BB_p); careerTotals.K_p += N(game.K_p);
     careerTotals.HR_p += N(game.HR_p); careerTotals.BF += N(game.BF); careerTotals.PC += N(game.PC);

@@ -206,7 +206,7 @@ function calculateStats(games) {
         PO: parseNum(game.fielding.PO),
         A: parseNum(game.fielding.A),
         E: parseNum(game.fielding.E),
-        TC: parseNum(game.fielding.TC),
+        TC: parseNum(game.fielding.PO) + parseNum(game.fielding.A) + parseNum(game.fielding.E),
         DP: parseNum(game.fielding.DP)
       },
       pitching: {
@@ -290,7 +290,9 @@ function calculateStats(games) {
   }
 
   // Fielding percentage
-  const TC = stats.fielding.TC;
+  // Total chances are derived: putouts + assists + errors (never trust a hand-entered TC).
+  const TC = stats.fielding.PO + stats.fielding.A + stats.fielding.E;
+  stats.fielding.TC = TC;
   stats.calculated.fieldingPct = TC ? ((stats.fielding.PO + stats.fielding.A) / TC) : 0;
   stats.calculated.rangeFactor = stats.games.played ?
     ((stats.fielding.PO + stats.fielding.A) / stats.games.played) : 0;

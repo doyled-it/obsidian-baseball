@@ -75,7 +75,7 @@ This Obsidian vault tracks personal baseball statistics with automatic aggregati
 | **PO** | Putouts | Times you recorded the final out (catch, force, tag) |
 | **A** | Assists | Times you helped make an out (throw to first, etc.) |
 | **E** | Errors | Times you made a fielding mistake |
-| **TC** | Total Chances | Total fielding opportunities (PO + A + E) |
+| **TC** | Total Chances | Putouts + assists + errors (auto-derived, not entered) |
 | **DP** | Double Plays | Times you participated in turning a double play |
 
 ### ⚾️ Pitching Statistics
