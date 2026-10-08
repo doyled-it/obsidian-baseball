@@ -11,6 +11,12 @@ type: reference
 
 ### Basic Hitting Stats
 
+#### PA
+Plate Appearances. Every time you come to bat: at-bats plus walks, hit-by-pitch and sacrifices. This is the number you log; AB is derived from it.
+
+#### FC
+Fielder's Choice. A batted ball where a fielder retires a different runner instead of the batter; it counts as an at-bat, not a hit.
+
 #### AB
 **At Bats** - The number of official at-bats, which includes hits, strikeouts, and fielding outs. Does not include walks, hit-by-pitch, sacrifice flies, or sacrifice bunts.
 
@@ -69,7 +75,7 @@ type: reference
 ## 📈 Hitting Rate Statistics
 
 ### AVG
-**Batting Average** - Hits divided by at-bats (H/AB). Measures the frequency of getting a hit.
+**Batting Average** - Hits divided by at-bats (H/AB; AB = PA - BB - HBP - SF). Measures the frequency of getting a hit.
 - *Good: .280+, Excellent: .300+, Elite: .320+*
 
 ### OBP

@@ -86,13 +86,13 @@ function parseGameFile(content) {
 
 // Check if a player actually played in this game
 function didPlay(game) {
-  const AB = parseNum(game.hitting.AB);
+  const PA = parseNum(game.hitting.PA);
   const H = parseNum(game.hitting.H);
   const PO = parseNum(game.fielding.PO);
   const A = parseNum(game.fielding.A);
   const IP = parseNum(game.pitching.IP);
 
-  return AB > 0 || H > 0 || PO > 0 || A > 0 || IP > 0;
+  return PA > 0 || H > 0 || PO > 0 || A > 0 || IP > 0;
 }
 
 // Process all game files for a season
@@ -130,8 +130,8 @@ function calculateStats(games) {
 
   const stats = {
     hitting: {
-      AB: 0, H: 0, '2B': 0, '3B': 0, HR: 0, RBI: 0, R: 0,
-      BB: 0, K: 0, HBP: 0, SF: 0, SB: 0, CS: 0,
+      PA: 0, H: 0, '2B': 0, '3B': 0, HR: 0, RBI: 0, R: 0,
+      BB: 0, K: 0, HBP: 0, SF: 0, FC: 0, SB: 0, CS: 0,
       RISP: 0, RISP_H: 0, hard_contact: 0, pitches_seen: 0
     },
     fielding: {
@@ -169,6 +169,9 @@ function calculateStats(games) {
     });
   }
 
+  // At-bats are derived: plate appearances minus the outcomes that are not at-bats.
+  stats.hitting.AB = Math.max(0, stats.hitting.PA - stats.hitting.BB - stats.hitting.HBP - stats.hitting.SF);
+
   // Count all games for team record (not just played)
   for (const game of games) {
     const result = game.metadata.result;
@@ -179,7 +182,8 @@ function calculateStats(games) {
     // Calculate individual game stats
     const gameStats = {
       hitting: {
-        AB: parseNum(game.hitting.AB),
+        PA: parseNum(game.hitting.PA),
+        AB: Math.max(0, parseNum(game.hitting.PA) - parseNum(game.hitting.BB) - parseNum(game.hitting.HBP) - parseNum(game.hitting.SF)),
         H: parseNum(game.hitting.H),
         '2B': parseNum(game.hitting['2B']),
         '3B': parseNum(game.hitting['3B']),
@@ -190,6 +194,7 @@ function calculateStats(games) {
         K: parseNum(game.hitting.K),
         HBP: parseNum(game.hitting.HBP),
         SF: parseNum(game.hitting.SF),
+        FC: parseNum(game.hitting.FC),
         SB: parseNum(game.hitting.SB),
         CS: parseNum(game.hitting.CS),
         RISP: parseNum(game.hitting.RISP),

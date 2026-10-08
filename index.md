@@ -32,7 +32,7 @@ const N = (v) => {
 let careerTotals = {
   // Hitting
   seasons: 0, gamesPlayed: 0,
-  AB: 0, H: 0, '2B': 0, '3B': 0, HR: 0, RBI: 0, R: 0, BB: 0, K: 0, HBP: 0, SF: 0, SB: 0, CS: 0,
+  PA: 0, AB: 0, FC: 0, H: 0, '2B': 0, '3B': 0, HR: 0, RBI: 0, R: 0, BB: 0, K: 0, HBP: 0, SF: 0, SB: 0, CS: 0,
   RISP: 0, RISP_H: 0, hard_contact: 0, pitches_seen: 0,
   // Fielding
   PO: 0, A: 0, E: 0, TC: 0, DP: 0,
@@ -50,7 +50,7 @@ for (const season of seasonPages) {
 
   // Filter to games where player actually played
   const playedGames = seasonGames.where(p =>
-    (N(p.AB) > 0) || (N(p.H) > 0) || (N(p.PO) > 0) || (N(p.A) > 0) || (N(p.IP) > 0)
+    (N(p.PA) > 0) || (N(p.H) > 0) || (N(p.PO) > 0) || (N(p.A) > 0) || (N(p.IP) > 0)
   );
 
   careerTotals.gamesPlayed += playedGames.length;
@@ -58,7 +58,7 @@ for (const season of seasonPages) {
   // Sum statistics from all games in this season
   for (const game of playedGames) {
     // Hitting
-    careerTotals.AB += N(game.AB); careerTotals.H += N(game.H); careerTotals['2B'] += N(game['2B']);
+    careerTotals.PA += N(game.PA); careerTotals.AB += Math.max(0, N(game.PA)-N(game.BB)-N(game.HBP)-N(game.SF)); careerTotals.FC += N(game.FC); careerTotals.H += N(game.H); careerTotals['2B'] += N(game['2B']);
     careerTotals['3B'] += N(game['3B']); careerTotals.HR += N(game.HR); careerTotals.RBI += N(game.RBI);
     careerTotals.R += N(game.R); careerTotals.BB += N(game.BB); careerTotals.K += N(game.K);
     careerTotals.HBP += N(game.HBP); careerTotals.SF += N(game.SF); careerTotals.SB += N(game.SB); careerTotals.CS += N(game.CS);
@@ -83,8 +83,8 @@ dv.paragraph(`**Seasons Played:** ${careerTotals.seasons} • **Games Played:** 
 // Career hitting totals
 dv.header(3, "🥎 Career Hitting");
 dv.table(
-  ["[AB](Glossary.md#ab)","[H](Glossary.md#h)","[2B](Glossary.md#2b)","[3B](Glossary.md#3b)","[HR](Glossary.md#hr)","[RBI](Glossary.md#rbi)","[R](Glossary.md#r)","[BB](Glossary.md#bb)","[K](Glossary.md#k)","[HBP](Glossary.md#hbp)","[SF](Glossary.md#sf)","[SB](Glossary.md#sb)","[CS](Glossary.md#cs)"],
-  [[careerTotals.AB, careerTotals.H, careerTotals['2B'], careerTotals['3B'], careerTotals.HR, careerTotals.RBI, careerTotals.R, careerTotals.BB, careerTotals.K, careerTotals.HBP, careerTotals.SF, careerTotals.SB, careerTotals.CS]]
+  ["[PA](Glossary.md#pa)","[AB](Glossary.md#ab)"[H](Glossary.md#h)","[2B](Glossary.md#2b)","[3B](Glossary.md#3b)","[HR](Glossary.md#hr)","[RBI](Glossary.md#rbi)","[R](Glossary.md#r)","[BB](Glossary.md#bb)","[K](Glossary.md#k)","[HBP](Glossary.md#hbp)","[SF](Glossary.md#sf)","[FC](Glossary.md#fc)","[SB](Glossary.md#sb)","[CS](Glossary.md#cs)"],
+  [[careerTotals.PA, careerTotals.AB, careerTotals.H, careerTotals['2B'], careerTotals['3B'], careerTotals.HR, careerTotals.RBI, careerTotals.R, careerTotals.BB, careerTotals.K, careerTotals.HBP, careerTotals.SF, careerTotals.FC, careerTotals.SB, careerTotals.CS]]
 );
 
 // Calculate career rates
@@ -196,7 +196,7 @@ const N = (v) => {
 // Initialize career totals
 let careerTotals = {
   seasons: 0, gamesPlayed: 0,
-  AB: 0, H: 0, '2B': 0, '3B': 0, HR: 0, RBI: 0, R: 0, BB: 0, K: 0, HBP: 0, SF: 0, SB: 0, CS: 0,
+  PA: 0, AB: 0, FC: 0, H: 0, '2B': 0, '3B': 0, HR: 0, RBI: 0, R: 0, BB: 0, K: 0, HBP: 0, SF: 0, SB: 0, CS: 0,
   RISP: 0, RISP_H: 0, hard_contact: 0, pitches_seen: 0,
   PO: 0, A: 0, E: 0, TC: 0, DP: 0,
   IP: 0, H_p: 0, R_p: 0, ER: 0, BB_p: 0, K_p: 0, HR_p: 0, BF: 0, PC: 0
@@ -208,12 +208,12 @@ for (const season of seasonPages) {
   const gamesFolder = season.games_folder || 'games/';
   const seasonGames = dv.pages('"' + gamesFolder + '"').where(p => p.type === "baseball-stats");
   const playedGames = seasonGames.where(p =>
-    (N(p.AB) > 0) || (N(p.H) > 0) || (N(p.PO) > 0) || (N(p.A) > 0) || (N(p.IP) > 0)
+    (N(p.PA) > 0) || (N(p.H) > 0) || (N(p.PO) > 0) || (N(p.A) > 0) || (N(p.IP) > 0)
   );
   careerTotals.gamesPlayed += playedGames.length;
 
   for (const game of playedGames) {
-    careerTotals.AB += N(game.AB); careerTotals.H += N(game.H); careerTotals['2B'] += N(game['2B']);
+    careerTotals.PA += N(game.PA); careerTotals.AB += Math.max(0, N(game.PA)-N(game.BB)-N(game.HBP)-N(game.SF)); careerTotals.FC += N(game.FC); careerTotals.H += N(game.H); careerTotals['2B'] += N(game['2B']);
     careerTotals['3B'] += N(game['3B']); careerTotals.HR += N(game.HR); careerTotals.RBI += N(game.RBI);
     careerTotals.R += N(game.R); careerTotals.BB += N(game.BB); careerTotals.K += N(game.K);
     careerTotals.HBP += N(game.HBP); careerTotals.SF += N(game.SF); careerTotals.SB += N(game.SB); careerTotals.CS += N(game.CS);
@@ -280,11 +280,11 @@ for (const season of seasonPages) {
   const gamesFolder = season.games_folder || 'games/';
   const seasonGames = dv.pages('"' + gamesFolder + '"').where(p => p.type === "baseball-stats");
   const playedGames = seasonGames.where(p =>
-    (N(p.AB) > 0) || (N(p.H) > 0) || (N(p.PO) > 0) || (N(p.A) > 0) || (N(p.IP) > 0)
+    (N(p.PA) > 0) || (N(p.H) > 0) || (N(p.PO) > 0) || (N(p.A) > 0) || (N(p.IP) > 0)
   );
 
   // Calculate season totals for this season
-  let seasonTotals = { AB: 0, H: 0, HR: 0, RBI: 0, BB: 0, HBP: 0, SF: 0 };
+  let seasonTotals = { PA: 0, AB: 0, FC: 0, H: 0, HR: 0, RBI: 0, BB: 0, HBP: 0, SF: 0 };
 
   for (const game of playedGames) {
     // Check single-game records
@@ -307,7 +307,7 @@ for (const season of seasonPages) {
     if (gameSB > singleGameBests.stolenBases) singleGameBests.stolenBases = gameSB;
 
     // Accumulate season totals
-    seasonTotals.AB += N(game.AB); seasonTotals.H += N(game.H); seasonTotals.HR += N(game.HR);
+    seasonTotals.PA += N(game.PA); seasonTotals.AB += Math.max(0, N(game.PA)-N(game.BB)-N(game.HBP)-N(game.SF)); seasonTotals.FC += N(game.FC); seasonTotals.H += N(game.H); seasonTotals.HR += N(game.HR);
     seasonTotals.RBI += N(game.RBI); seasonTotals.BB += N(game.BB); seasonTotals.HBP += N(game.HBP);
     seasonTotals.SF += N(game.SF);
   }

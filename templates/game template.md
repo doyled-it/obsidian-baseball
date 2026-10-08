@@ -10,7 +10,7 @@ score:
 # ⚾️ Game Log – {{date:YYYY-MM-DD}}
 
 ## 🥎 Hitting
-- AB::
+- PA::
 - H::
 - 2B::
 - 3B::
@@ -21,6 +21,7 @@ score:
 - K::
 - HBP::
 - SF::
+- FC::
 - SB::
 - CS::
 
