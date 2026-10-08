@@ -307,28 +307,41 @@ function calculateStats(games) {
 function main() {
   console.log('🔄 Processing baseball stats...\n');
 
-  // Define seasons to process
-  const seasons = [
-    {
-      id: 'fall2025',
-      name: 'Fall 2025',
-      folder: 'games/2025/fall',
-      player: 'Michael Doyle',
-      team: 'Happy Sox',
-      position: 'Utility (P/IF/OF)'
-    },
-    {
-      id: 'spring2026',
-      name: 'Spring 2026',
-      folder: 'games/2026/spring',
-      player: 'Michael Doyle',
-      team: 'Happy Sox',
-      position: 'Utility (P/IF/OF)'
+  // Auto-discover seasons from games/<year>/<term>/ folders, so new seasons
+  // (e.g. games/2026/fall) are picked up without editing this file.
+  const SEASON_ORDER = { spring: 0, summer: 1, fall: 2, winter: 3 };
+  const SEASON_META = {
+    player: 'Michael Doyle',
+    team: 'Happy Sox',
+    position: 'Utility (P/IF/OF)'
+  };
+  const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
+
+  const gamesRoot = path.join(__dirname, 'games');
+  const seasons = [];
+  if (fs.existsSync(gamesRoot)) {
+    const years = fs.readdirSync(gamesRoot, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && /^\d{4}$/.test(d.name))
+      .map((d) => d.name)
+      .sort();
+    for (const year of years) {
+      const terms = fs.readdirSync(path.join(gamesRoot, year), { withFileTypes: true })
+        .filter((d) => d.isDirectory() && Object.prototype.hasOwnProperty.call(SEASON_ORDER, d.name.toLowerCase()))
+        .map((d) => d.name.toLowerCase())
+        .sort((a, b) => SEASON_ORDER[a] - SEASON_ORDER[b]);
+      for (const term of terms) {
+        seasons.push({
+          id: `${term}${year}`,
+          name: `${cap(term)} ${year}`,
+          folder: `games/${year}/${term}`,
+          ...SEASON_META
+        });
+      }
     }
-  ];
+  }
 
   const output = {
-    currentSeason: 'spring2026',
+    currentSeason: null,
     lastUpdated: new Date().toISOString(),
     seasons: {}
   };
@@ -346,7 +359,15 @@ function main() {
       gamesProcessed: games.length
     };
 
+    // Current season = the most recent one that actually has games.
+    if (games.length > 0) output.currentSeason = season.id;
+
     console.log(`  ✅ Processed ${games.length} games (${stats.games.played} played)\n`);
+  }
+
+  // Fallback if no games are present yet.
+  if (!output.currentSeason) {
+    output.currentSeason = seasons.length ? seasons[seasons.length - 1].id : 'spring2026';
   }
 
   // Write output
